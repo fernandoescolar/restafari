@@ -10,6 +10,82 @@ namespace Restafari
         /// <summary>
         /// Posts the specified URL.
         /// </summary>
+        /// <param name="url">The URL.</param>
+        protected async Task PostAsync(string url)
+        {
+            await this.PostAsync(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        protected async Task PostAsync(string url, Parameters parameters)
+        {
+            await this.FetchAsync(Method.Post, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        protected async Task GetAsync(string url)
+        {
+            await this.GetAsync(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        protected async Task GetAsync(string url, Parameters parameters)
+        {
+            await this.FetchAsync(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        protected async Task PutAsync(string url)
+        {
+            await this.PutAsync(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        protected async Task PutAsync(string url, Parameters parameters)
+        {
+            await this.FetchAsync(Method.Put, url, parameters);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        protected async Task DeleteAsync(string url)
+        {
+            await this.DeleteAsync(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        protected async Task DeleteAsync(string url, Parameters parameters)
+        {
+            await this.FetchAsync(Method.Delete, url, parameters);
+        }
+
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
         /// <param name="url">The URL.</param>
         /// <returns>A list of deserialized objects.</returns>
@@ -152,9 +228,35 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         private async Task<Stream> FetchStreamAsync(Method method, string url, Parameters parameters)
         {
-            var request = await this.CreateRequestAsync(method, url, parameters);
-            var response = await request.GetResponseAsync();
-            return response.GetResponseStream();
+            try
+            {
+                var request = await this.CreateRequestAsync(method, url, parameters);
+                var response = await request.GetResponseAsync();
+                return response.GetResponseStream();
+            }
+            catch (WebException ex)
+            {
+                throw CreateRestException(ex);
+            }
+        }
+
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        private async Task FetchAsync(Method method, string url, Parameters parameters)
+        {
+            try
+            {
+                var request = await this.CreateRequestAsync(method, url, parameters);
+                var response = await request.GetResponseAsync();
+            }
+            catch (WebException ex)
+            {
+                throw CreateRestException(ex);
+            }
         }
 
         /// <summary>
