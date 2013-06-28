@@ -1,0 +1,188 @@
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Threading.Tasks;
+
+namespace Restafari
+{
+    partial class RestClientBase
+    {
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected async Task<IList<T>> PostListAsync<T>(string url)
+        {
+            return await this.PostListAsync<T>(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected async Task<IList<T>> PostListAsync<T>(string url, Parameters parameters)
+        {
+            return await this.FetchListAsync<T>(Method.Post, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected async Task<IList<T>> GetListAsync<T>(string url)
+        {
+            return await this.GetListAsync<T>(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected async Task<IList<T>> GetListAsync<T>(string url, Parameters parameters)
+        {
+            return await this.FetchListAsync<T>(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected async Task<T> PostAsync<T>(string url)
+        {
+            return await this.PostAsync<T>(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected async Task<T> PostAsync<T>(string url, Parameters parameters)
+        {
+            return await this.FetchAsync<T>(Method.Post, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected async Task<T> GetAsync<T>(string url)
+        {
+            return await this.GetAsync<T>(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected async Task<T> GetAsync<T>(string url, Parameters parameters)
+        {
+            return await this.FetchAsync<T>(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="method">The method.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        private async Task<IList<T>> FetchListAsync<T>(Method method, string url, Parameters parameters)
+        {
+
+            string responseString;
+
+            using (var reader = new StreamReader(await this.FetchStreamAsync(method, url, parameters)))
+            {
+                responseString = reader.ReadToEnd();
+            }
+
+            var temporary = Deserialize<T[]>(responseString);
+            return new List<T>(temporary);
+        }
+
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="method">The method.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        private async Task<T> FetchAsync<T>(Method method, string url, Parameters parameters)
+        {
+
+            string responseString;
+
+            using (var reader = new StreamReader(await this.FetchStreamAsync(method, url, parameters)))
+            {
+                responseString = reader.ReadToEnd();
+            }
+
+            var temporary = Deserialize<T>(responseString);
+            return temporary;
+        }
+
+        /// <summary>
+        /// Fetches the stream.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The response stream.</returns>
+        private async Task<Stream> FetchStreamAsync(Method method, string url, Parameters parameters)
+        {
+            var request = await this.CreateRequestAsync(method, url, parameters);
+            var response = await request.GetResponseAsync();
+            return response.GetResponseStream();
+        }
+
+        /// <summary>
+        /// Creates the request.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The http web request.</returns>
+        private async Task<IRequest> CreateRequestAsync(Method method, string url, Parameters parameters)
+        {
+            byte[] byteArray;
+            var request = this.CreateRequest(method, url, parameters, out byteArray);
+
+            if (byteArray != null)
+            {
+                await WriteBodyAsync(request, byteArray);
+            }
+
+            return request;
+        }
+
+        private async Task WriteBodyAsync(IRequest request, byte[] byteArray)
+        {
+            using (var dataStream = await request.GetRequestStreamAsync())
+            {
+                dataStream.WriteAsync(byteArray, 0, byteArray.Length);
+            }
+        }
+    }
+}
