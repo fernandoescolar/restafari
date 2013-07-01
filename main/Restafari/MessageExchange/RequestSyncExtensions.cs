@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 
-namespace Restafari
+namespace Restafari.MessageExchange
 {
     public static class RequestSyncExtensions
     {

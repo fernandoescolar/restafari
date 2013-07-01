@@ -2,7 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Restafari
+namespace Restafari.MessageExchange
 {
     public static class RequestAsyncExtensions
     {

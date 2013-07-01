@@ -87,6 +87,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Restafari\ContentType.cs">
+      <Link>ContentType.cs</Link>
+    </Compile>
     <Compile Include="..\Restafari\IRequest.cs">
       <Link>IRequest.cs</Link>
     </Compile>
@@ -96,26 +99,32 @@
     <Compile Include="..\Restafari\IResponse.cs">
       <Link>IResponse.cs</Link>
     </Compile>
+    <Compile Include="..\Restafari\MessageExchange\IRequestDecorator.cs">
+      <Link>MessageExchange\IRequestDecorator.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\MessageExchange\JsonRequestDecorator.cs">
+      <Link>MessageExchange\JsonRequestDecorator.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\MessageExchange\Request.cs">
+      <Link>MessageExchange\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\MessageExchange\RequestAsyncExtensions.cs">
+      <Link>MessageExchange\RequestAsyncExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\MessageExchange\RequestFactory.cs">
+      <Link>MessageExchange\RequestFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\MessageExchange\Response.cs">
+      <Link>MessageExchange\Response.cs</Link>
+    </Compile>
     <Compile Include="..\Restafari\Method.cs">
       <Link>Method.cs</Link>
     </Compile>
     <Compile Include="..\Restafari\Parameters.cs">
       <Link>Parameters.cs</Link>
     </Compile>
-    <Compile Include="..\Restafari\Request.cs">
-      <Link>Request.cs</Link>
-    </Compile>
-    <Compile Include="..\Restafari\RequestAsyncExtensions.cs">
-      <Link>RequestAsyncExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Restafari\RequestFactory.cs">
-      <Link>RequestFactory.cs</Link>
-    </Compile>
     <Compile Include="..\Restafari\RequestState.cs">
       <Link>RequestState.cs</Link>
-    </Compile>
-    <Compile Include="..\Restafari\Response.cs">
-      <Link>Response.cs</Link>
     </Compile>
     <Compile Include="..\Restafari\RestClientBase.async.await.cs">
       <Link>RestClientBase.async.await.cs</Link>
@@ -125,6 +134,30 @@
     </Compile>
     <Compile Include="..\Restafari\RestClientException.cs">
       <Link>RestClientException.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\Serialization\DeserializationContext.cs">
+      <Link>Serialization\DeserializationContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\Serialization\EmptySerializationStrategy.cs">
+      <Link>Serialization\EmptySerializationStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\Serialization\IDeserializationStrategy.cs">
+      <Link>Serialization\IDeserializationStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\Serialization\ISerializationStrategy.cs">
+      <Link>Serialization\ISerializationStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\Serialization\JsonDeserializationStrategy.cs">
+      <Link>Serialization\JsonDeserializationStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\Serialization\JsonSerializationStrategy.cs">
+      <Link>Serialization\JsonSerializationStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\Serialization\QueryStringSerializationStrategy.cs">
+      <Link>Serialization\QueryStringSerializationStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\Serialization\SerializationContext.cs">
+      <Link>Serialization\SerializationContext.cs</Link>
     </Compile>
     <Compile Include="..\Restafari\StreamState.cs">
       <Link>StreamState.cs</Link>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using Restafari.MessageExchange;
 
 namespace Restafari
 {

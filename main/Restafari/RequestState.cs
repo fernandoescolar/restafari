@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Net;
 using System.Threading;
 
 namespace Restafari
@@ -13,10 +12,6 @@ namespace Restafari
         public AsyncCallback Callback { get; set; }
         public readonly ManualResetEvent Waiter = new ManualResetEvent(false);
 
-        /// <summary>
-        /// Realiza tareas definidas por la aplicación asociadas a la liberación o al restablecimiento de recursos no administrados.
-        /// </summary>
-        /// <filterpriority>2</filterpriority>
         public void Dispose()
         {
             this.Waiter.Dispose();

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using Newtonsoft.Json;
+using Restafari.MessageExchange;
+using Restafari.Serialization;
 
 namespace Restafari
 {
@@ -13,6 +14,12 @@ namespace Restafari
     /// </summary>
     public abstract partial class RestClientBase
     {
+        private static readonly Lazy<Dictionary<ContentType, IRequestDecorator>> RequestDecorators = new Lazy<Dictionary<ContentType, IRequestDecorator>>(() => new Dictionary<ContentType, IRequestDecorator>{ {ContentType.Json, new JsonRequestDecorator()} });
+
+        private static readonly Lazy<SerializationContext> SerializationContext = new Lazy<SerializationContext>(() => new SerializationContext());
+
+        private static readonly Lazy<DeserializationContext> DeserializationContext = new Lazy<DeserializationContext>(() => new DeserializationContext());
+
         private readonly bool useCredentials;
 
         private readonly string user;
@@ -20,6 +27,8 @@ namespace Restafari
         private readonly string password;
 
         private readonly IRequestFactory requestFactory;
+
+        public ContentType ContentType { get; set; }
 
         protected RestClientBase() : this(new RequestFactory())
         {
@@ -29,6 +38,11 @@ namespace Restafari
         {
             this.useCredentials = false;
             this.requestFactory = requestFactory;
+            this.ContentType = ContentType.Json;
+        }
+
+        protected RestClientBase(string user, string password) : this(user, password, new RequestFactory())
+        {
         }
 
         protected RestClientBase(string user, string password, IRequestFactory requestFactory)
@@ -37,13 +51,14 @@ namespace Restafari
             this.user = user;
             this.password = password;
             this.requestFactory = requestFactory;
+            this.ContentType = ContentType.Json;
         }
 
         private IRequest CreateRequest(Method method, string url, Parameters parameters, out byte[] byteArray)
         {
             byteArray = null;
 
-            var parameterString = SerializeParameters(method, parameters);
+            var parameterString = SerializationContext.Value.Serialize(method, this.ContentType, parameters);
             var parsedUrl = ParseUrl(method, url, parameterString);
             var request = this.CreateHttpWebRequest(method, parsedUrl);
 
@@ -61,14 +76,10 @@ namespace Restafari
         private IRequest CreateHttpWebRequest(Method method, string parsedUrl)
         {
             var request = this.requestFactory.Create(parsedUrl);
-            request.ContentType = "application/json; charset=UTF-8";
-            request.Accept = "application/json";
             request.Method = method.ToString().ToUpper();
 
-            //if (method == Method.Post || method == Method.Put)
-            //{
-            //    request.ContentType = "application/x-www-form-urlencoded";
-            //}
+            RequestDecorators.Value[this.ContentType].Decorate(request);
+
             if (this.useCredentials)
             {
                 request.Credentials = new NetworkCredential(this.user, this.password);
@@ -84,35 +95,9 @@ namespace Restafari
                 : url + "?" + parameterString;
         }
 
-        /// <summary>
-        /// Serializes the parameters.
-        /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns>The serialized parameters.</returns>
-        private static string SerializeParameters(Method method, Parameters parameters)
+        private static T Deserialize<T>(string payload)
         {
-            if (Method.Get == method || Method.Delete == method)
-            {
-                return string.Join("&", parameters.ToList().Select(kp => kp.Key + "=" + parameters.GetSerialized(kp.Key)));
-            }
-
-            if (parameters.Count == 1)
-            {
-                return JsonConvert.SerializeObject(parameters[parameters.Keys.First()]);
-            }
-
-            return JsonConvert.SerializeObject(parameters);
-        }
-
-        /// <summary>
-        /// Deserializes the specified text.
-        /// </summary>
-        /// <typeparam name="T">The type to deserialize.</typeparam>
-        /// <param name="text">The text.</param>
-        /// <returns>The deserialized object.</returns>
-        private static T Deserialize<T>(string text)
-        {
-            return JsonConvert.DeserializeObject<T>(text);
+            return DeserializationContext.Value.Deserialize<T>(ContentType.Json, payload);
         }
 
         [DebuggerStepThrough]

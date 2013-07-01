@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restafari.WindowsPhone", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restafari.Tests", "Restafari.Tests\Restafari.Tests.csproj", "{CB0233E6-8526-42EE-A4E4-61140EA5F8A9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{2304F1AD-199C-4DD3-BA73-D7ADED3D1132}"
+	ProjectSection(SolutionItems) = preProject
+		Restafari.sln.DotSettings = Restafari.sln.DotSettings
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 6

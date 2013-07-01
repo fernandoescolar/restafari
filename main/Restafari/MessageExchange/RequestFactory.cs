@@ -1,4 +1,4 @@
-namespace Restafari
+namespace Restafari.MessageExchange
 {
     internal class RequestFactory : IRequestFactory
     {
