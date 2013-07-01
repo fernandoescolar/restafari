@@ -9,7 +9,19 @@ namespace Restafari.Tests
         public RestafariTests() : base(TestRequestFactory.Instance)
         {
         }
-    
+
+        [TestMethod]
+        public void JsonHeadersTest()
+        {
+            const string jsonContentType = "application/json; charset=UTF-8";
+            const string jsonAccept = "application/json";
+
+            this.Post("fakeurl");
+
+            Assert.AreEqual(TestRequestFactory.Request.ContentType, jsonContentType);
+            Assert.AreEqual(TestRequestFactory.Request.Accept, jsonAccept);
+        }
+
         [TestMethod]
         public void PostTest()
         {

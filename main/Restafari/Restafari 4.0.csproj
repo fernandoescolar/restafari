@@ -48,20 +48,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentType.cs" />
     <Compile Include="IRequest.cs" />
     <Compile Include="IRequestFactory.cs" />
     <Compile Include="IResponse.cs" />
+    <Compile Include="MessageExchange\IRequestDecorator.cs" />
+    <Compile Include="MessageExchange\JsonRequestDecorator.cs" />
+    <Compile Include="MessageExchange\Request.cs" />
+    <Compile Include="MessageExchange\RequestFactory.cs" />
+    <Compile Include="MessageExchange\RequestSyncExtensions.cs" />
+    <Compile Include="MessageExchange\Response.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Request.cs" />
-    <Compile Include="RequestFactory.cs" />
     <Compile Include="RequestState.cs" />
-    <Compile Include="RequestSyncExtensions.cs" />
-    <Compile Include="Response.cs" />
     <Compile Include="RestClientBase.cs" />
     <Compile Include="RestClientBase.sync.cs" />
     <Compile Include="RestClientException.cs" />
+    <Compile Include="Serialization\DeserializationContext.cs" />
+    <Compile Include="Serialization\EmptySerializationStrategy.cs" />
+    <Compile Include="Serialization\IDeserializationStrategy.cs" />
+    <Compile Include="Serialization\ISerializationStrategy.cs" />
+    <Compile Include="Serialization\JsonDeserializationStrategy.cs" />
+    <Compile Include="Serialization\JsonSerializationStrategy.cs" />
+    <Compile Include="Serialization\QueryStringSerializationStrategy.cs" />
+    <Compile Include="Serialization\SerializationContext.cs" />
     <Compile Include="StreamState.cs" />
   </ItemGroup>
   <ItemGroup>
