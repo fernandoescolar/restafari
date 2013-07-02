@@ -13,5 +13,10 @@ namespace Restafari.Tests.Mocks
         {
             return stream;
         }
+
+        public void CleanUp()
+        {
+            this.stream.CleanUp();
+        }
     }
 }

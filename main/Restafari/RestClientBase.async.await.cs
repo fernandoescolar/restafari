@@ -194,7 +194,7 @@ namespace Restafari
                 responseString = reader.ReadToEnd();
             }
 
-            var temporary = Deserialize<T[]>(responseString);
+            var temporary = DeserializationContext.Value.Deserialize<T[]>(this.ContentType, responseString);
             return new List<T>(temporary);
         }
 
@@ -216,7 +216,7 @@ namespace Restafari
                 responseString = reader.ReadToEnd();
             }
 
-            var temporary = Deserialize<T>(responseString);
+            var temporary = DeserializationContext.Value.Deserialize<T>(this.ContentType, responseString);
             return temporary;
         }
 
