@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Restafari
 {
-    internal class RequestState : IDisposable
+    public class RequestState : IDisposable
     {
         public IRequest Request { get; set; }
         public IResponse Response { get; set; }
