@@ -36,5 +36,10 @@ namespace Restafari.Tests.Mocks
         {
             return stream;
         }
+
+        public void CleanUp()
+        {
+            stream.CleanUp();
+        }
     }
 }

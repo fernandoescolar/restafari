@@ -40,6 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -54,6 +55,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Mocks\DummyDataTransferObject.cs" />
+    <Compile Include="RestafariParametersTests.cs" />
     <Compile Include="Mocks\TestRequest.cs" />
     <Compile Include="Mocks\TestRequestFactory.cs" />
     <Compile Include="Mocks\TestResponse.cs" />

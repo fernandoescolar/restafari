@@ -11,7 +11,7 @@ namespace Restafari.Tests.Mocks
         {
             get
             {
-                return Encoding.UTF8.GetString(this.buffer.GetBuffer());
+                return Encoding.UTF8.GetString(this.buffer.GetBuffer(), 0, (int)this.buffer.Length);
             }
             set
             {
@@ -69,6 +69,16 @@ namespace Restafari.Tests.Mocks
         {
             get { return this.buffer.Position; }
             set { this.buffer.Position = value; }
+        }
+
+        public void CleanUp()
+        {
+            if (this.buffer != null)
+            {
+                buffer.Close();
+            }
+
+            this.buffer = new MemoryStream();
         }
     }
 }

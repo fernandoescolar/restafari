@@ -60,7 +60,7 @@ namespace Restafari
 
             var parameterString = SerializationContext.Value.Serialize(method, this.ContentType, parameters);
             var parsedUrl = ParseUrl(method, url, parameterString);
-            var request = this.CreateHttpWebRequest(method, parsedUrl);
+            var request = this.CreateHttpRequest(method, parsedUrl);
 
             if (method == Method.Post || method == Method.Put)
             {
@@ -73,7 +73,7 @@ namespace Restafari
             return request;
         }
 
-        private IRequest CreateHttpWebRequest(Method method, string parsedUrl)
+        private IRequest CreateHttpRequest(Method method, string parsedUrl)
         {
             var request = this.requestFactory.Create(parsedUrl);
             request.Method = method.ToString().ToUpper();
@@ -93,11 +93,6 @@ namespace Restafari
             return ((method == Method.Post || method == Method.Put) || string.IsNullOrEmpty(parameterString))
                 ? url
                 : url + "?" + parameterString;
-        }
-
-        private static T Deserialize<T>(string payload)
-        {
-            return DeserializationContext.Value.Deserialize<T>(ContentType.Json, payload);
         }
 
         [DebuggerStepThrough]

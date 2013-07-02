@@ -6,6 +6,8 @@ namespace Restafari.Tests
     [TestClass]
     public class RestafariTests: RestClientBase
     {
+        private const string FakeUrl = "http://fakeUrl";
+
         public RestafariTests() : base(TestRequestFactory.Instance)
         {
         }
@@ -16,7 +18,7 @@ namespace Restafari.Tests
             const string jsonContentType = "application/json; charset=UTF-8";
             const string jsonAccept = "application/json";
 
-            this.Post("fakeurl");
+            this.Post(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.ContentType, jsonContentType);
             Assert.AreEqual(TestRequestFactory.Request.Accept, jsonAccept);
@@ -25,149 +27,149 @@ namespace Restafari.Tests
         [TestMethod]
         public void PostTest()
         {
-            this.Post("fakeurl");
+            this.Post(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "POST");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public void GetTest()
         {
-            this.Get("fakeurl");
+            this.Get(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "GET");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public void PutTest()
         {
-            this.Put("fakeurl");
+            this.Put(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "PUT");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            this.Delete("fakeurl");
+            this.Delete(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "DELETE");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public void PostStreamTest()
         {
-            var actual = this.PostStream("fakeurl");
+            var actual = this.PostStream(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "POST");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
             Assert.AreSame(TestRequestFactory.Response.Stream, actual);
         }
 
         [TestMethod]
         public void GetStreamTest()
         {
-            var actual = this.GetStream("fakeurl");
+            var actual = this.GetStream(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "GET");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
             Assert.AreSame(TestRequestFactory.Response.Stream, actual);
         }
 
         [TestMethod]
         public void PutStreamTest()
         {
-            var actual = this.PutStream("fakeurl");
+            var actual = this.PutStream(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "PUT");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
             Assert.AreSame(TestRequestFactory.Response.Stream, actual);
         }
 
         [TestMethod]
         public void DeleteStreamTest()
         {
-            var actual = this.DeleteStream("fakeurl");
+            var actual = this.DeleteStream(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "DELETE");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
             Assert.AreSame(TestRequestFactory.Response.Stream, actual);
         }
 
         [TestMethod]
         public void BeginPostTest()
         {
-            this.BeginPost("fakeurl");
+            this.BeginPost(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "POST");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public void BeginGetTest()
         {
-            this.BeginGet("fakeurl");
+            this.BeginGet(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "GET");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public void BeginPutTest()
         {
-            this.BeginPut("fakeurl");
+            this.BeginPut(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "PUT");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public void BeginDeleteTest()
         {
-            this.BeginDelete("fakeurl");
+            this.BeginDelete(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "DELETE");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public async void AsyncPostTest()
         {
-            await this.PostAsync("fakeurl");
+            await this.PostAsync(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "POST");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public async void AsyncGetTest()
         {
-            await this.GetAsync("fakeurl");
+            await this.GetAsync(FakeUrl);
             
             Assert.AreEqual(TestRequestFactory.Request.Method, "GET");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public async void AsyncPutTest()
         {
-            await this.PutAsync("fakeurl");
+            await this.PutAsync(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "PUT");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
 
         [TestMethod]
         public async void AsyncDeleteTest()
         {
-            await this.DeleteAsync("fakeurl");
+            await this.DeleteAsync(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "DELETE");
-            Assert.AreEqual(TestRequestFactory.Request.Url, "fakeurl");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
         }
     }
 }
