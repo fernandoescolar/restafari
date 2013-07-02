@@ -2,11 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Restafari</id>
-        <version>0.8.0.0</version>
+        <version>0.8.0.3</version>
         <title>Restafari</title>
         <authors>Fernando Escolar</authors>
+        <projectUrl>https://restafari.codeplex.com/</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A REST Client base for your .Net projects.</description>
+        <tags>rest, client, net40, net45, wp8, netcore45</tags>
         <dependencies>
             <dependency id="Newtonsoft.Json" version="5.0.6" />
         </dependencies>
