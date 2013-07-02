@@ -9,8 +9,8 @@
     <ProjectGuid>{96FB5C4B-0CE8-4390-AE35-74D8D82861F3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Restafari.WindowsStore</RootNamespace>
-    <AssemblyName>Restafari.WindowsStore</AssemblyName>
+    <RootNamespace>Restafari</RootNamespace>
+    <AssemblyName>Restafari</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -31,7 +31,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Deploy\netcore45\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -139,6 +139,9 @@
     <Compile Include="..\Restafari\Parameters.cs">
       <Link>Parameters.cs</Link>
     </Compile>
+    <Compile Include="..\Restafari\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="..\Restafari\RequestState.cs">
       <Link>RequestState.cs</Link>
     </Compile>
@@ -178,7 +181,6 @@
     <Compile Include="..\Restafari\StreamState.cs">
       <Link>StreamState.cs</Link>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

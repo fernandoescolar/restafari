@@ -284,7 +284,7 @@ namespace Restafari
         {
             using (var dataStream = await request.GetRequestStreamAsync())
             {
-                dataStream.WriteAsync(byteArray, 0, byteArray.Length);
+                await dataStream.WriteAsync(byteArray, 0, byteArray.Length);
             }
         }
     }

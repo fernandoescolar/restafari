@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Restafari</id>
+        <version>0.8.0.0</version>
+        <title>Restafari</title>
+        <authors>Fernando Escolar</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A REST Client base for your .Net projects.</description>
+        <dependencies>
+            <dependency id="Newtonsoft.Json" version="5.0.6" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="Deploy\net40\Restafari.4.0.dll" target="lib\net40\Restafari.4.0.dll" />
+        <file src="Deploy\net45\Restafari.dll" target="lib\net45\Restafari.dll" />
+        <file src="Deploy\netcore45\Restafari.dll" target="lib\netcore45\Restafari.dll" />
+        <file src="Deploy\wp8\Restafari.dll" target="lib\wp8\Restafari.dll" />
+    </files>
+</package>

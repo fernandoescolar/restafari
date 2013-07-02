@@ -13,6 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restafari.Tests", "Restafar
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{2304F1AD-199C-4DD3-BA73-D7ADED3D1132}"
 	ProjectSection(SolutionItems) = preProject
+		Restafari.nuspec = Restafari.nuspec
 		Restafari.sln.DotSettings = Restafari.sln.DotSettings
 	EndProjectSection
 EndProject
