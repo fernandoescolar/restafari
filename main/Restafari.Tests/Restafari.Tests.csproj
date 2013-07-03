@@ -55,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="RestafariResponseTests.cs" />
     <Compile Include="Mocks\DummyDataTransferObject.cs" />
     <Compile Include="RestafariParametersTests.cs" />
     <Compile Include="Mocks\TestRequest.cs" />

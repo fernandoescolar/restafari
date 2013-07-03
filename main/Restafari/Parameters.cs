@@ -5,7 +5,7 @@ namespace Restafari
 {
     public class Parameters : Dictionary<string, object>
     {
-        public string GetSerialized(string key)
+        internal string GetSerialized(string key)
         {
             if (this[key] is string)
             {

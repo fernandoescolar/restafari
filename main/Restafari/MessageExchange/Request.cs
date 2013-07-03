@@ -37,6 +37,12 @@ namespace Restafari.MessageExchange
             set { this.internalRequest.Credentials = value; }
         }
 
+        public WebHeaderCollection Headers
+        {
+            get { return this.internalRequest.Headers; }
+            set { this.internalRequest.Headers = value; }
+        }
+
         public IAsyncResult BeginGetRequestStream(AsyncCallback fetchStreamCallback, object state)
         {
             return this.internalRequest.BeginGetRequestStream(fetchStreamCallback, state);

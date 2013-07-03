@@ -14,7 +14,7 @@ namespace Restafari
     /// </summary>
     public abstract partial class RestClientBase
     {
-        private static readonly Lazy<Dictionary<ContentType, IRequestDecorator>> RequestDecorators = new Lazy<Dictionary<ContentType, IRequestDecorator>>(() => new Dictionary<ContentType, IRequestDecorator>{ {ContentType.Json, new JsonRequestDecorator()} });
+        private static readonly Lazy<Dictionary<ContentType, IRequestDecorator>> RequestDecorators = new Lazy<Dictionary<ContentType, IRequestDecorator>>(() => new Dictionary<ContentType, IRequestDecorator> { { ContentType.Json, new JsonRequestDecorator() }, { ContentType.Xml, new XmlRequestDecorator() } });
 
         private static readonly Lazy<SerializationContext> SerializationContext = new Lazy<SerializationContext>(() => new SerializationContext());
 
@@ -54,6 +54,10 @@ namespace Restafari
             this.ContentType = ContentType.Json;
         }
 
+        protected virtual void OnRequestCreated(IRequest request)
+        {
+        }
+
         private IRequest CreateRequest(Method method, string url, Parameters parameters, out byte[] byteArray)
         {
             byteArray = null;
@@ -70,6 +74,7 @@ namespace Restafari
                 }
             }
             
+            this.OnRequestCreated(request);
             return request;
         }
 

@@ -119,6 +119,9 @@
     <Compile Include="..\Restafari\MessageExchange\Response.cs">
       <Link>MessageExchange\Response.cs</Link>
     </Compile>
+    <Compile Include="..\Restafari\MessageExchange\XmlRequestDecorator.cs">
+      <Link>MessageExchange\XmlRequestDecorator.cs</Link>
+    </Compile>
     <Compile Include="..\Restafari\Method.cs">
       <Link>Method.cs</Link>
     </Compile>
@@ -163,6 +166,9 @@
     </Compile>
     <Compile Include="..\Restafari\Serialization\SerializationContext.cs">
       <Link>Serialization\SerializationContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\Serialization\XmlSerializationStrategy.cs">
+      <Link>Serialization\XmlSerializationStrategy.cs</Link>
     </Compile>
     <Compile Include="HttpWebRequestExtensions.cs" />
   </ItemGroup>
