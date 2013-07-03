@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentType.cs" />
+    <Compile Include="MessageExchange\XmlRequestDecorator.cs" />
     <Compile Include="MessageExchange\IRequestDecorator.cs" />
     <Compile Include="MessageExchange\JsonRequestDecorator.cs" />
     <Compile Include="MessageExchange\RequestSyncExtensions.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="RequestState.cs" />
     <Compile Include="RestClientBase.cs" />
     <Compile Include="RestClientException.cs" />
+    <Compile Include="Serialization\XmlSerializationStrategy.cs" />
     <Compile Include="Serialization\DeserializationContext.cs" />
     <Compile Include="Serialization\EmptySerializationStrategy.cs" />
     <Compile Include="Serialization\IDeserializationStrategy.cs" />

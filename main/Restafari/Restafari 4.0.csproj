@@ -60,6 +60,7 @@
     <Compile Include="MessageExchange\RequestFactory.cs" />
     <Compile Include="MessageExchange\RequestSyncExtensions.cs" />
     <Compile Include="MessageExchange\Response.cs" />
+    <Compile Include="MessageExchange\XmlRequestDecorator.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Serialization\JsonSerializationStrategy.cs" />
     <Compile Include="Serialization\QueryStringSerializationStrategy.cs" />
     <Compile Include="Serialization\SerializationContext.cs" />
+    <Compile Include="Serialization\XmlSerializationStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RestClientBase.begin.end.cs" />

@@ -10,6 +10,7 @@ namespace Restafari
         string Accept { get; set; }
         string Method { get; set; }
         ICredentials Credentials { get; set; }
+        WebHeaderCollection Headers { get; set; }
 
         IAsyncResult BeginGetResponse(AsyncCallback fetchStreamCallback, object state);
         IResponse EndGetResponse(IAsyncResult ar);

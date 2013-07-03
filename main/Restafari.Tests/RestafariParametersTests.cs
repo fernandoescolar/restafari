@@ -17,6 +17,14 @@ namespace Restafari.Tests
         [TestMethod]
         public void JsonBodyIntParamaterTest()
         {
+            this.Post(FakeUrl, 12);
+
+            Assert.AreEqual("12", TestRequestFactory.Request.Buffer);
+        }
+
+        [TestMethod]
+        public void JsonBodyIntParamatersTest()
+        {
             var parameters = new Parameters { { string.Empty, 12 } };
 
             this.Post(FakeUrl, parameters);
@@ -39,6 +47,16 @@ namespace Restafari.Tests
         public void JsonBodyStringParamaterTest()
         {
             const string expected = @"""ola k ase""";
+
+            this.Post(FakeUrl, "ola k ase");
+
+            Assert.AreEqual(expected, TestRequestFactory.Request.Buffer);
+        }
+
+        [TestMethod]
+        public void JsonBodyStringParamatersTest()
+        {
+            const string expected = @"""ola k ase""";
             var parameters = new Parameters { { string.Empty, "ola k ase" } };
 
             this.Post(FakeUrl, parameters);
@@ -59,6 +77,23 @@ namespace Restafari.Tests
 
         [TestMethod]
         public void JsonBodyComplexParamaterTest()
+        {
+            const string expected = @"{""id"":""fef2511d-601e-4061-8201-a6352fa898b4"",""name"":""fulano"",""age"":30,""active"":true}";
+            var dto = new DummyDataTransferObject
+            {
+                Id = new Guid("FEF2511D-601E-4061-8201-A6352FA898B4"),
+                Active = true,
+                Age = 30,
+                Name = "fulano"
+            };
+
+            this.Post(FakeUrl, dto);
+
+            Assert.AreEqual(expected, TestRequestFactory.Request.Buffer);
+        }
+
+        [TestMethod]
+        public void JsonBodyComplexParamatersTest()
         {
             const string expected = @"{""id"":""fef2511d-601e-4061-8201-a6352fa898b4"",""name"":""fulano"",""age"":30,""active"":true}";
             var dto = new DummyDataTransferObject

@@ -12,6 +12,7 @@ namespace Restafari.Tests.Mocks
         public string Accept { get; set; }
         public string Method { get; set; }
         public ICredentials Credentials { get; set; }
+        public WebHeaderCollection Headers { get; set; }
 
         public string Url { get; set; }
         public Stream Stream { get { return stream; } }

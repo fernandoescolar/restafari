@@ -24,6 +24,21 @@ namespace Restafari
         /// Posts the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginPost<T>(string url, T parameter, AsyncCallback callback = null)
+        {
+            var parameters = new Parameters { { string.Empty, parameter } };
+            return this.BeginPost(url, parameters, callback);
+        }
+
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
         /// <param name="parameters">The parameters.</param>
         /// <param name="callback">The callback.</param>
         /// <returns>
@@ -45,6 +60,21 @@ namespace Restafari
         protected IAsyncResult BeginGet(string url, AsyncCallback callback = null)
         {
             return this.BeginGet(url, new Parameters(), callback);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginGet<T>(string url, T parameter, AsyncCallback callback = null)
+        {
+            var parameters = new Parameters { { string.Empty, parameter } };
+            return this.BeginGet(url, parameters, callback);
         }
 
         /// <summary>
@@ -78,6 +108,21 @@ namespace Restafari
         /// Puts the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginPut<T>(string url, T parameter, AsyncCallback callback = null)
+        {
+            var parameters = new Parameters { { string.Empty, parameter } };
+            return this.BeginPut(url, parameters, callback);
+        }
+
+        /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
         /// <param name="parameters">The parameters.</param>
         /// <param name="callback">The callback.</param>
         /// <returns>
@@ -99,6 +144,21 @@ namespace Restafari
         protected IAsyncResult BeginDelete(string url, AsyncCallback callback = null)
         {
             return this.BeginDelete(url, new Parameters(), callback);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginDelete<T>(string url, T parameter, AsyncCallback callback = null)
+        {
+            var parameters = new Parameters { { string.Empty, parameter } };
+            return this.BeginDelete(url, parameters, callback);
         }
 
         /// <summary>

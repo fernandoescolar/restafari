@@ -9,7 +9,8 @@ namespace Restafari.Serialization
                                                                                            {
                                                                                                new EmptySerializationStrategy(),
                                                                                                new QueryStringSerializationStrategy(),
-                                                                                               new JsonSerializationStrategy()
+                                                                                               new JsonSerializationStrategy(),
+                                                                                               new XmlSerializationStrategy()
                                                                                            };
         public string Serialize(Method method, ContentType type, Parameters parameters)
         {
