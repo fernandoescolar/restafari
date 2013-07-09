@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -7,6 +9,8 @@ namespace Restafari.Serialization
 {
     internal class XmlSerializationStrategy : ISerializationStrategy
     {
+        private const string OnlyOneParameterMessage = "The xml content type doesn't support more one parameter";
+
         public bool CanSerialize(Method method, ContentType type, Parameters parameters)
         {
             return ContentType.Xml == type && (Method.Post == method || Method.Put == method) && parameters != null && parameters.Count > 0;
@@ -14,9 +18,10 @@ namespace Restafari.Serialization
 
         public string Serialize(Parameters parameters)
         {
+            var settings = new XmlWriterSettings {OmitXmlDeclaration = true};
             using (var writer = new StringWriter())
             {
-                using (var xml = XmlWriter.Create(writer))
+                using (var xml = XmlWriter.Create(writer, settings))
                 {
                     if (parameters.Count == 1)
                     {
@@ -24,12 +29,7 @@ namespace Restafari.Serialization
                     }
                     else
                     {
-                        foreach(var param in parameters)
-                        {
-                            xml.WriteStartElement(param.Key);
-                            this.AddElement(xml, param.Value);
-                            xml.WriteEndElement();
-                        }
+                        throw new ArgumentException(OnlyOneParameterMessage, "parameters");
                     }
                 }
                 
@@ -39,8 +39,8 @@ namespace Restafari.Serialization
 
         private void AddElement(XmlWriter xml, object value)
         {
-             var serializer = new XmlSerializer(value.GetType());
-             serializer.Serialize(xml, value);
+            var serializer = new DataContractSerializer(value.GetType());
+            serializer.WriteObject(xml, value);
         }
     }
 }
