@@ -5,11 +5,11 @@ using Restafari.Tests.Mocks;
 namespace Restafari.Tests
 {
     [TestClass]
-    public class RestafariParametersTests : RestClientBase
+    public class JsonRestafariParametersTests : RestClientBase
     {
         private const string FakeUrl = "http://fakeUrl";
 
-        public RestafariParametersTests()
+        public JsonRestafariParametersTests()
             : base(TestRequestFactory.Instance)
         {
         }
@@ -127,50 +127,6 @@ namespace Restafari.Tests
             this.Post(FakeUrl, parameters);
 
             Assert.AreEqual(expected, TestRequestFactory.Request.Buffer);
-        }
-
-        [TestMethod]
-        public void QueryStringIntParamaterTest()
-        {
-            var expected = string.Format("{0}{1}", FakeUrl, "?param1=12");
-            var parameters = new Parameters { { "param1", 12 } };
-
-            this.Get(FakeUrl, parameters);
-
-            Assert.AreEqual(expected, TestRequestFactory.Request.Url);
-        }
-
-        [TestMethod]
-        public void QueryStringTwoIntParamatersTest()
-        {
-            var expected = string.Format("{0}{1}", FakeUrl, "?param1=12&param2=13");
-            var parameters = new Parameters { { "param1", 12 }, { "param2", 13 } };
-
-            this.Get(FakeUrl, parameters);
-
-            Assert.AreEqual(expected, TestRequestFactory.Request.Url);
-        }
-
-        [TestMethod]
-        public void QueryStringStringParamaterTest()
-        {
-            var expected = string.Format("{0}{1}", FakeUrl, "?param1=ola k ase");
-            var parameters = new Parameters { { "param1", "ola k ase" } };
-
-            this.Get(FakeUrl, parameters);
-
-            Assert.AreEqual(expected, TestRequestFactory.Request.Url);
-        }
-
-        [TestMethod]
-        public void QueryStringTwoStringAndIntParamatersTest()
-        {
-            var expected = string.Format("{0}{1}", FakeUrl, "?param1=ola k ase&param2=13");
-            var parameters = new Parameters { { "param1", "ola k ase" }, { "param2", 13 } };
-
-            this.Get(FakeUrl, parameters);
-
-            Assert.AreEqual(expected, TestRequestFactory.Request.Url);
         }
 
         [TestCleanup]

@@ -41,6 +41,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -55,9 +57,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="RestafariResponseTests.cs" />
+    <Compile Include="QueryStringRestafariParametersTests.cs" />
+    <Compile Include="JsonRestafariResponseTests.cs" />
     <Compile Include="Mocks\DummyDataTransferObject.cs" />
-    <Compile Include="RestafariParametersTests.cs" />
+    <Compile Include="JsonRestafariParametersTests.cs" />
     <Compile Include="Mocks\TestRequest.cs" />
     <Compile Include="Mocks\TestRequestFactory.cs" />
     <Compile Include="Mocks\TestResponse.cs" />
@@ -66,6 +69,8 @@
     <Compile Include="Mocks\TestStreamDisposingEventArgs.cs" />
     <Compile Include="RestafariTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlRestafariParametersTests.cs" />
+    <Compile Include="XmlRestafariResponseTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restafari\Restafari.csproj">

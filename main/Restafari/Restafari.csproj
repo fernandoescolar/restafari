@@ -41,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,6 +69,7 @@
     <Compile Include="RequestState.cs" />
     <Compile Include="RestClientBase.cs" />
     <Compile Include="RestClientException.cs" />
+    <Compile Include="Serialization\XmlDeserializationStrategy.cs" />
     <Compile Include="Serialization\XmlSerializationStrategy.cs" />
     <Compile Include="Serialization\DeserializationContext.cs" />
     <Compile Include="Serialization\EmptySerializationStrategy.cs" />
