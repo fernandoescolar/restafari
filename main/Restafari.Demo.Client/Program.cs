@@ -1,4 +1,6 @@
 ﻿using System;
+using Restafari.Demo.Client.Push;
+using Restafari.Demo.Client.Sync;
 
 namespace Restafari.Demo.Client
 {
