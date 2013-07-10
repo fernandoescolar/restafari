@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 
 namespace Restafari.Demo.Client
 {
     public class DemoClient : RestClientBase
     {
         private const string ContactResource = "http://{0}/api/contacts";
-        private string host;
+        private readonly string host;
 
         public DemoClient(string host) : base()
         {
@@ -41,6 +42,13 @@ namespace Restafari.Demo.Client
         {
             var url = string.Format(ContactResource + "/{1}", host, id);
             this.Delete(url);
+        }
+
+        protected override void OnRequestCreated(IRequest request)
+        {
+            // here we can add authentication headers or whatever
+            request.Headers[HttpRequestHeader.UserAgent] = "Restafari 0.9.0.0 Rest Client";
+            base.OnRequestCreated(request);
         }
     }
 }
