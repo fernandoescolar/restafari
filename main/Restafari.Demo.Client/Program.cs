@@ -23,6 +23,11 @@ namespace Restafari.Demo.Client
 
             var contacts = client.GetContacts();
             Console.WriteLine("Contacts: " + contacts.Count);
+
+            var push = new PushClient("localhost:45340");
+            push.Subscribe();
+
+            Console.ReadLine();
         }
     }
 }
