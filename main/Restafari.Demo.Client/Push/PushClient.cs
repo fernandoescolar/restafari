@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restafari.Demo.Client
+namespace Restafari.Demo.Client.Push
 {
     public class PushClient : RestClientBase
     {
@@ -33,7 +33,7 @@ namespace Restafari.Demo.Client
 
         private void ReadLine(StreamState state)
         {
-            state.Stream.BeginRead(state.Buffer, 0, state.Buffer.Length, OnStreamReaded, state);
+            state.Stream.BeginRead(state.Buffer, 0, state.Buffer.Length, this.OnStreamReaded, state);
         }
 
         private void OnStreamReaded(IAsyncResult ar)

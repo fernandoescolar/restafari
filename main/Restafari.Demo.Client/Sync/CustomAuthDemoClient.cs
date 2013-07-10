@@ -1,54 +1,58 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 
-namespace Restafari.Demo.Client
+namespace Restafari.Demo.Client.Sync
 {
-    public class DemoClient : RestClientBase
+    public class CustomAuthDemoClient : RestClientBase
     {
+        private const string AuthKey = "5s48e4fasA4sfadEE5E";
         private const string ContactResource = "http://{0}/api/contacts";
         private readonly string host;
 
-        public DemoClient(string host) : base()
+        public CustomAuthDemoClient(string host) : base()
         {
             this.host = host;
-            //this.ContentType = ContentType.Xml;
         }
 
         public IList<Contact> GetContacts()
         {
-            var url = string.Format(ContactResource, host);
+            var url = string.Format(ContactResource, this.host);
             return this.GetList<Contact>(url);
         }
 
         public Contact GetContactById(int id)
         {
-            var url = string.Format(ContactResource + "/{1}", host, id);
+            var url = string.Format(ContactResource + "/{1}", this.host, id);
             return this.Get<Contact>(url);
         }
 
         public void AddContact(Contact contact)
         {
-            var url = string.Format(ContactResource, host);
+            var url = string.Format(ContactResource, this.host);
             this.Post(url, contact);
         }
 
         public void UpdateContact(Contact contact)
         {
-            var url = string.Format(ContactResource + "/{1}", host, contact.ContactId);
+            var url = string.Format(ContactResource + "/{1}", this.host, contact.ContactId);
             this.Put(url, contact);
         }
 
         public void DeleteContact(int id)
         {
-            var url = string.Format(ContactResource + "/{1}", host, id);
+            var url = string.Format(ContactResource + "/{1}", this.host, id);
             this.Delete(url);
         }
 
         protected override void OnRequestCreated(IRequest request)
         {
-            // here we can add authentication headers or whatever
-            request.Headers[HttpRequestHeader.UserAgent] = "Restafari 0.9.0.0 Rest Client";
+            request.Headers["Authorization"] = this.GetAuthToken(ContactResource, request.Method, AuthKey);
             base.OnRequestCreated(request);
+        }
+
+        private string GetAuthToken(string resource, string method, string key)
+        {
+            // make your custom call to get the auth token
+            return string.Empty;
         }
     }
 }
