@@ -8,24 +8,12 @@ namespace Restafari
     {
         public static Task<Stream> GetRequestStreamAsync(this HttpWebRequest request)
         {
-            var taskComplete = new TaskCompletionSource<Stream>();
-            request.BeginGetRequestStream(ar =>
-            {
-                var requestStream = request.EndGetRequestStream(ar);
-                taskComplete.TrySetResult(requestStream);
-            }, request);
-            return taskComplete.Task;
+            return Task.Factory.FromAsync<Stream>(request.BeginGetRequestStream, request.EndGetRequestStream, null);
         }
 
         public static Task<WebResponse> GetResponseAsync(this HttpWebRequest request)
         {
-            var taskComplete = new TaskCompletionSource<WebResponse>();
-            request.BeginGetResponse(ar =>
-            {
-                var response = request.EndGetResponse(ar);
-                taskComplete.TrySetResult(response);
-            }, request);
-            return taskComplete.Task;
+            return Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, null);
         }
     }
 }

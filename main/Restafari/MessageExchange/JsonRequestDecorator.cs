@@ -7,7 +7,11 @@ namespace Restafari.MessageExchange
 
         public void Decorate(IRequest request)
         {
-            request.ContentType = JsonContentType;
+            if (request.Method.ToUpper() != "GET")
+            {
+                request.ContentType = JsonContentType;
+            }
+
             request.Accept = JsonAccept;
         }
     }

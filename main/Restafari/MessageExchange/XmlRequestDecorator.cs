@@ -7,7 +7,11 @@ namespace Restafari.MessageExchange
 
         public void Decorate(IRequest request)
         {
-            request.ContentType = XmlContentType;
+            if (request.Method.ToUpper() != "GET")
+            {
+                request.ContentType = XmlContentType;
+            }
+
             request.Accept = XmlAccept;
         }
     }
