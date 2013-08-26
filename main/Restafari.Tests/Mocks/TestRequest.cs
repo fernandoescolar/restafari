@@ -20,7 +20,7 @@ namespace Restafari.Tests.Mocks
 
         public IAsyncResult BeginGetResponse(AsyncCallback fetchStreamCallback, object state)
         {
-            return null;
+            return new TestAsyncResult();
         }
 
         public IResponse EndGetResponse(IAsyncResult ar)
@@ -30,7 +30,7 @@ namespace Restafari.Tests.Mocks
 
         public IAsyncResult BeginGetRequestStream(AsyncCallback fetchStreamCallback, object state)
         {
-            return null;
+            return new TestAsyncResult();
         }
 
         public Stream EndGetRequestStream(IAsyncResult ar)

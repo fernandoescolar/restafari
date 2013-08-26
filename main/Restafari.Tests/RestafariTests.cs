@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Restafari.Tests.Mocks;
 
 namespace Restafari.Tests
@@ -137,7 +138,7 @@ namespace Restafari.Tests
         }
 
         [TestMethod]
-        public async void AsyncPostTest()
+        public async Task AsyncPostTest()
         {
             await this.PostAsync(FakeUrl);
 
@@ -146,7 +147,7 @@ namespace Restafari.Tests
         }
 
         [TestMethod]
-        public async void AsyncGetTest()
+        public async Task AsyncGetTest()
         {
             await this.GetAsync(FakeUrl);
             
@@ -155,7 +156,7 @@ namespace Restafari.Tests
         }
 
         [TestMethod]
-        public async void AsyncPutTest()
+        public async Task AsyncPutTest()
         {
             await this.PutAsync(FakeUrl);
 
@@ -164,7 +165,7 @@ namespace Restafari.Tests
         }
 
         [TestMethod]
-        public async void AsyncDeleteTest()
+        public async Task AsyncDeleteTest()
         {
             await this.DeleteAsync(FakeUrl);
 
