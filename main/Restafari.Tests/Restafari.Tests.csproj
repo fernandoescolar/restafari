@@ -57,6 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Mocks\TestAsyncResult.cs" />
     <Compile Include="QueryStringRestafariParametersTests.cs" />
     <Compile Include="JsonRestafariResponseTests.cs" />
     <Compile Include="Mocks\DummyDataTransferObject.cs" />
