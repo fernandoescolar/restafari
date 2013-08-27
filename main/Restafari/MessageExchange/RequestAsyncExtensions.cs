@@ -16,14 +16,14 @@ namespace Restafari.MessageExchange
             return await Task<IResponse>.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null);
         }
 
-        public static async Task<Stream> GetRequestStreamAsync(this IRequest request)
+        public static Task<Stream> GetRequestStreamAsync(this IRequest request)
         {
             if (request is Request)
             {
-                return await ((Request) request).internalRequest.GetRequestStreamAsync();
+                return ((Request) request).internalRequest.GetRequestStreamAsync();
             }
 
-            return await Task<Stream>.Factory.FromAsync(request.BeginGetRequestStream, request.EndGetRequestStream, null);
+            return Task<Stream>.Factory.FromAsync(request.BeginGetRequestStream, request.EndGetRequestStream, null);
         }
     }
 }
