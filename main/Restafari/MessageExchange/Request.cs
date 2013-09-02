@@ -13,22 +13,22 @@ namespace Restafari.MessageExchange
             this.internalRequest = (HttpWebRequest) WebRequest.Create(url);
         }
 
-        public string ContentType
-        {
-            get { return this.internalRequest.ContentType; }
-            set { this.internalRequest.ContentType = value; }
-        }
-
         public string Accept
         {
             get { return this.internalRequest.Accept; }
             set { this.internalRequest.Accept = value; }
         }
 
-        public string Method
+        public string ContentType
         {
-            get { return this.internalRequest.Method; }
-            set { this.internalRequest.Method = value; }
+            get { return this.internalRequest.ContentType; }
+            set { this.internalRequest.ContentType = value; }
+        }
+
+        public CookieContainer CookieContainer
+        {
+            get { return this.internalRequest.CookieContainer; }
+            set { this.internalRequest.CookieContainer = value; }
         }
 
         public ICredentials Credentials
@@ -37,10 +37,32 @@ namespace Restafari.MessageExchange
             set { this.internalRequest.Credentials = value; }
         }
 
+        public bool HaveResponse
+        {
+            get { return this.internalRequest.HaveResponse; }
+        }
+
         public WebHeaderCollection Headers
         {
             get { return this.internalRequest.Headers; }
             set { this.internalRequest.Headers = value; }
+        }
+
+        public string Method
+        {
+            get { return this.internalRequest.Method; }
+            set { this.internalRequest.Method = value; }
+        }
+
+        public Uri RequestUri
+        {
+            get { return this.internalRequest.RequestUri; }
+        }
+
+        public bool UseDefaultCredentials
+        {
+            get { return this.internalRequest.UseDefaultCredentials; }
+            set { this.internalRequest.UseDefaultCredentials = value; }
         }
 
         public IAsyncResult BeginGetRequestStream(AsyncCallback fetchStreamCallback, object state)

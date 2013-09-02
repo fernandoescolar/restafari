@@ -38,6 +38,16 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected void Post(RequestSettings settings)
+        {
+            settings.Method = Method.Post;
+            this.Fetch(settings);
+        }
+
+        /// <summary>
         /// Gets the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -65,6 +75,16 @@ namespace Restafari
         protected void Get(string url, Parameters parameters)
         {
             this.Fetch(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected void Get(RequestSettings settings)
+        {
+            settings.Method = Method.Get;
+            this.Fetch(settings);
         }
 
         /// <summary>
@@ -98,6 +118,16 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected void Put(RequestSettings settings)
+        {
+            settings.Method = Method.Put;
+            this.Fetch(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -125,6 +155,16 @@ namespace Restafari
         protected void Delete(string url, Parameters parameters)
         {
             this.Fetch(Method.Delete, url, parameters);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected void Delete(RequestSettings settings)
+        {
+            settings.Method = Method.Delete;
+            this.Fetch(settings);
         }
 
         /// <summary>
@@ -161,6 +201,17 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Stream PostStream(RequestSettings settings)
+        {
+            settings.Method = Method.Post;
+            return this.FetchStream(settings);
+        }
+
+        /// <summary>
         /// Gets the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -191,6 +242,17 @@ namespace Restafari
         protected Stream GetStream(string url, Parameters parameters)
         {
             return this.FetchStream(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Stream GetStream(RequestSettings settings)
+        {
+            settings.Method = Method.Get;
+            return this.FetchStream(settings);
         }
 
         /// <summary>
@@ -227,6 +289,17 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Stream PutStream(RequestSettings settings)
+        {
+            settings.Method = Method.Put;
+            return this.FetchStream(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -257,6 +330,17 @@ namespace Restafari
         protected Stream DeleteStream(string url, Parameters parameters)
         {
             return this.FetchStream(Method.Delete, url, parameters);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Stream DeleteStream(RequestSettings settings)
+        {
+            settings.Method = Method.Delete;
+            return this.FetchStream(settings);
         }
 
         /// <summary>
@@ -297,6 +381,18 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected IList<T> PostList<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Post;
+            return this.FetchList<T>(settings);
+        }
+
+        /// <summary>
         /// Gets the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -331,6 +427,18 @@ namespace Restafari
         protected IList<T> GetList<T>(string url, Parameters parameters)
         {
             return this.FetchList<T>(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected IList<T> GetList<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Get;
+            return this.FetchList<T>(settings);
         }
 
         /// <summary>
@@ -371,6 +479,18 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected IList<T> PutList<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Put;
+            return this.FetchList<T>(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -405,6 +525,18 @@ namespace Restafari
         protected IList<T> DeleteList<T>(string url, Parameters parameters)
         {
             return this.FetchList<T>(Method.Delete, url, parameters);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected IList<T> DeleteList<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Delete;
+            return this.FetchList<T>(settings);
         }
 
         /// <summary>
@@ -444,6 +576,18 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected T Post<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Post;
+            return this.Fetch<T>(settings);
+        }
+
+        /// <summary>
         /// Gets the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -477,6 +621,18 @@ namespace Restafari
         protected T Get<T>(string url, Parameters parameters)
         {
             return this.Fetch<T>(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected T Get<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Get;
+            return this.Fetch<T>(settings);
         }
 
         /// <summary>
@@ -516,6 +672,18 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected T Put<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Put;
+            return this.Fetch<T>(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -552,6 +720,18 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected T Delete<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Delete;
+            return this.Fetch<T>(settings);
+        }
+
+        /// <summary>
         /// Fetches the specified method.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -561,16 +741,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         private IList<T> FetchList<T>(Method method, string url, Parameters parameters)
         {
-
-            string responseString;
-
-            using (var reader = new StreamReader(this.FetchStream(method, url, parameters)))
-            {
-                responseString = reader.ReadToEnd();
-            }
-
-            var temporary = DeserializationContext.Value.Deserialize<T[]>(this.ContentType, responseString);
-            return new List<T>(temporary);
+            return this.FetchList<T>(this.CreateRequestSettings(method, url, parameters));
         }
 
         /// <summary>
@@ -583,16 +754,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         private T Fetch<T>(Method method, string url, Parameters parameters)
         {
-
-            string responseString;
-
-            using (var reader = new StreamReader(this.FetchStream(method, url, parameters)))
-            {
-                responseString = reader.ReadToEnd();
-            }
-
-            var temporary = DeserializationContext.Value.Deserialize<T>(this.ContentType, responseString);
-            return temporary;
+            return this.Fetch<T>(this.CreateRequestSettings(method, url, parameters));
         }
 
         /// <summary>
@@ -604,11 +766,9 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         private Stream FetchStream(Method method, string url, Parameters parameters)
         {
-            var request = this.CreateRequestSync(method, url, parameters);
-            var response = request.GetResponse();
-            return response.GetResponseStream();
+            return this.FetchStream(this.CreateRequestSettings(method, url, parameters));
         }
-
+       
         /// <summary>
         /// Fetches the specified method.
         /// </summary>
@@ -617,10 +777,73 @@ namespace Restafari
         /// <param name="parameters">The parameters.</param>
         private void Fetch(Method method, string url, Parameters parameters)
         {
+            this.Fetch(this.CreateRequestSettings(method, url, parameters));
+        }
+
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        private IList<T> FetchList<T>(RequestSettings settings)
+        {
+
+            string responseString;
+
+            using (var reader = new StreamReader(this.FetchStream(settings)))
+            {
+                responseString = reader.ReadToEnd();
+            }
+
+            var temporary = DeserializeParameters<T[]>(settings, responseString);
+            return new List<T>(temporary);
+        }
+
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        private T Fetch<T>(RequestSettings settings)
+        {
+
+            string responseString;
+
+            using (var reader = new StreamReader(this.FetchStream(settings)))
+            {
+                responseString = reader.ReadToEnd();
+            }
+
+            var temporary = DeserializeParameters<T>(settings, responseString);
+            return temporary;
+        }
+
+        /// <summary>
+        /// Fetches the stream.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        private Stream FetchStream(RequestSettings settings)
+        {
+            var request = this.CreateAndPrepareRequest(settings);
+            var response = request.GetResponse();
+            this.OnResponseReceived(response, settings);
+            return response.GetResponseStream();
+        }
+
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        private void Fetch(RequestSettings settings)
+        {
             try
             {
-                var request = this.CreateRequestSync(method, url, parameters);
+                var request = this.CreateAndPrepareRequest(settings);
                 var response = request.GetResponse();
+                this.OnResponseReceived(response, settings);
             }
             catch (WebException ex)
             {
@@ -631,24 +854,22 @@ namespace Restafari
         /// <summary>
         /// Creates the request.
         /// </summary>
-        /// <param name="method">The method.</param>
-        /// <param name="url">The URL.</param>
-        /// <param name="parameters">The parameters.</param>
+        /// <param name="settings">The request settings.</param>
         /// <returns>The http web request.</returns>
-        private IRequest CreateRequestSync(Method method, string url, Parameters parameters)
+        private IRequest CreateAndPrepareRequest(RequestSettings settings)
         {
             byte[] byteArray;
-            var request = this.CreateRequest(method, url, parameters, out byteArray);
+            var request = this.CreateAndPrepareRequest(settings, out byteArray);
 
             if (byteArray != null)
             {
-                WriteBodySync(request, byteArray);
+                this.WriteBody(request, byteArray);
             }
 
             return request;
         }
 
-        private void WriteBodySync(IRequest request, byte[] byteArray)
+        private void WriteBody(IRequest request, byte[] byteArray)
         {
             using(var writer = request.GetRequestStream())
             {

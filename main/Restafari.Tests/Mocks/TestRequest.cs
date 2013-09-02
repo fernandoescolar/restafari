@@ -9,9 +9,13 @@ namespace Restafari.Tests.Mocks
         private TestStream stream = new TestStream();
 
         public string ContentType { get; set; }
+        public CookieContainer CookieContainer { get; set; }
         public string Accept { get; set; }
         public string Method { get; set; }
+        public Uri RequestUri { get; private set; }
+        public bool UseDefaultCredentials { get; set; }
         public ICredentials Credentials { get; set; }
+        public bool HaveResponse { get; private set; }
         public WebHeaderCollection Headers { get; set; }
 
         public string Url { get; set; }

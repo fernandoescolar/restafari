@@ -1,6 +1,6 @@
-namespace Restafari.Serialization
+namespace Restafari
 {
-    internal interface ISerializationStrategy
+    public interface ISerializationStrategy
     {
         bool CanSerialize(Method method, ContentType type, Parameters parameters);
         string Serialize(Parameters parameters);
