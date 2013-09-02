@@ -50,6 +50,20 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginPost(RequestSettings settings, AsyncCallback callback = null)
+        {
+            settings.Method = Method.Post;
+            return this.BeginFetchStream(settings);
+        }
+
+        /// <summary>
         /// Gets the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -89,6 +103,20 @@ namespace Restafari
         protected IAsyncResult BeginGet(string url, Parameters parameters, AsyncCallback callback = null)
         {
             return this.BeginFetchStream(Method.Get, url, parameters, callback);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginGet(RequestSettings settings, AsyncCallback callback = null)
+        {
+            settings.Method = Method.Get;
+            return this.BeginFetchStream(settings);
         }
 
         /// <summary>
@@ -134,6 +162,20 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginPut(RequestSettings settings, AsyncCallback callback = null)
+        {
+            settings.Method = Method.Put;
+            return this.BeginFetchStream(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -176,6 +218,20 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginDelete(RequestSettings settings, AsyncCallback callback = null)
+        {
+            settings.Method = Method.Delete;
+            return this.BeginFetchStream(settings);
+        }
+
+        /// <summary>
         /// Ends the request.
         /// </summary>
         /// <param name="ar">The async state.</param>
@@ -204,13 +260,14 @@ namespace Restafari
         protected T EndRequest<T>(IAsyncResult ar)
         {
             string responseString;
+            var state = (RequestState)ar.AsyncState;
 
             using (var reader = new StreamReader(this.EndFetchStream(ar)))
             {
                 responseString = reader.ReadToEnd();
             }
 
-            var temporary = DeserializationContext.Value.Deserialize<T>(this.ContentType, responseString);
+            var temporary = DeserializeParameters<T>(state.Settings, responseString);
             return temporary;
         }
 
@@ -223,13 +280,14 @@ namespace Restafari
         protected IList<T> EndRequestList<T>(IAsyncResult ar)
         {
             string responseString;
+            var state = (RequestState)ar.AsyncState;
 
             using (var reader = new StreamReader(this.EndFetchStream(ar)))
             {
                 responseString = reader.ReadToEnd();
             }
 
-            var temporary = DeserializationContext.Value.Deserialize<T[]>(this.ContentType, responseString);
+            var temporary = DeserializeParameters<T[]>(state.Settings, responseString);
             return new List<T>(temporary);
         }
 
@@ -243,8 +301,19 @@ namespace Restafari
         /// <returns>The async state.</returns>
         private IAsyncResult BeginFetchStream(Method method, string url, Parameters parameters, AsyncCallback callback = null)
         {
-            var request = this.CreateRequestSync(method, url, parameters);
-            var state = new RequestState { Request = request, Callback = callback };
+            return this.BeginFetchStream(this.CreateRequestSettings(method, url, parameters), callback);
+        }
+
+        /// <summary>
+        /// Begins an async Fetch the stream.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <param name="callback">The callback method.</param>
+        /// <returns>The async state.</returns>
+        private IAsyncResult BeginFetchStream(RequestSettings settings, AsyncCallback callback = null)
+        {
+            var request = this.CreateAndPrepareRequest(settings);
+            var state = new RequestState { Settings = settings, Request = request, Callback = callback };
             return request.BeginGetResponse(FetchStreamCallback, state);
         }
 
@@ -261,6 +330,7 @@ namespace Restafari
             {
                 state.Response = request.EndGetResponse(ar);
                 state.ResponseStream = state.Response.GetResponseStream();
+                this.OnResponseReceived(state.Response, state.Settings);
             }
             catch (WebException ex)
             {

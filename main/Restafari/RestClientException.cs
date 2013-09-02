@@ -4,12 +4,17 @@ namespace Restafari
 {
     public class RestClientException : Exception
     {
-        public RestClientException(string message) : base(message)
+        public IResponse Response { get; private set; }
+
+        public RestClientException(string message, IResponse response) : base(message)
         {
+            this.Response = response;
         }
 
-        public RestClientException(string message, Exception innerExcepion) : base(message, innerExcepion)
+        public RestClientException(string message, IResponse response, Exception innerExcepion)
+            : base(message, innerExcepion)
         {
+            this.Response = response;
         }
     }
 }

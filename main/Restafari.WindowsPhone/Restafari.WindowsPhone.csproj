@@ -92,8 +92,14 @@
     <Compile Include="..\Restafari\ContentType.cs">
       <Link>ContentType.cs</Link>
     </Compile>
+    <Compile Include="..\Restafari\IDeserializationStrategy.cs">
+      <Link>IDeserializationStrategy.cs</Link>
+    </Compile>
     <Compile Include="..\Restafari\IRequest.cs">
       <Link>IRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Restafari\IRequestDecorator.cs">
+      <Link>IRequestDecorator.cs</Link>
     </Compile>
     <Compile Include="..\Restafari\IRequestFactory.cs">
       <Link>IRequestFactory.cs</Link>
@@ -101,8 +107,8 @@
     <Compile Include="..\Restafari\IResponse.cs">
       <Link>IResponse.cs</Link>
     </Compile>
-    <Compile Include="..\Restafari\MessageExchange\IRequestDecorator.cs">
-      <Link>MessageExchange\IRequestDecorator.cs</Link>
+    <Compile Include="..\Restafari\ISerializationStrategy.cs">
+      <Link>ISerializationStrategy.cs</Link>
     </Compile>
     <Compile Include="..\Restafari\MessageExchange\JsonRequestDecorator.cs">
       <Link>MessageExchange\JsonRequestDecorator.cs</Link>
@@ -131,6 +137,9 @@
     <Compile Include="..\Restafari\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Restafari\RequestSettings.cs">
+      <Link>RequestSettings.cs</Link>
+    </Compile>
     <Compile Include="..\Restafari\RequestState.cs">
       <Link>RequestState.cs</Link>
     </Compile>
@@ -148,12 +157,6 @@
     </Compile>
     <Compile Include="..\Restafari\Serialization\EmptySerializationStrategy.cs">
       <Link>Serialization\EmptySerializationStrategy.cs</Link>
-    </Compile>
-    <Compile Include="..\Restafari\Serialization\IDeserializationStrategy.cs">
-      <Link>Serialization\IDeserializationStrategy.cs</Link>
-    </Compile>
-    <Compile Include="..\Restafari\Serialization\ISerializationStrategy.cs">
-      <Link>Serialization\ISerializationStrategy.cs</Link>
     </Compile>
     <Compile Include="..\Restafari\Serialization\JsonDeserializationStrategy.cs">
       <Link>Serialization\JsonDeserializationStrategy.cs</Link>

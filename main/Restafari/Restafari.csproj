@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="ContentType.cs" />
     <Compile Include="MessageExchange\XmlRequestDecorator.cs" />
-    <Compile Include="MessageExchange\IRequestDecorator.cs" />
+    <Compile Include="IRequestDecorator.cs" />
     <Compile Include="MessageExchange\JsonRequestDecorator.cs" />
     <Compile Include="MessageExchange\RequestSyncExtensions.cs" />
     <Compile Include="IRequest.cs" />
@@ -61,6 +61,7 @@
     <Compile Include="MessageExchange\RequestAsyncExtensions.cs" />
     <Compile Include="MessageExchange\RequestFactory.cs" />
     <Compile Include="MessageExchange\Response.cs" />
+    <Compile Include="RequestSettings.cs" />
     <Compile Include="RestClientBase.sync.cs" />
     <Compile Include="RestClientBase.async.await.cs" />
     <Compile Include="Method.cs" />
@@ -73,8 +74,8 @@
     <Compile Include="Serialization\XmlSerializationStrategy.cs" />
     <Compile Include="Serialization\DeserializationContext.cs" />
     <Compile Include="Serialization\EmptySerializationStrategy.cs" />
-    <Compile Include="Serialization\IDeserializationStrategy.cs" />
-    <Compile Include="Serialization\ISerializationStrategy.cs" />
+    <Compile Include="IDeserializationStrategy.cs" />
+    <Compile Include="ISerializationStrategy.cs" />
     <Compile Include="Serialization\JsonDeserializationStrategy.cs" />
     <Compile Include="Serialization\JsonSerializationStrategy.cs" />
     <Compile Include="Serialization\QueryStringSerializationStrategy.cs" />

@@ -39,6 +39,16 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected Task PostAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Post;
+            return this.FetchAsync(settings);
+        }
+
+        /// <summary>
         /// Gets the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -66,6 +76,16 @@ namespace Restafari
         protected Task GetAsync(string url, Parameters parameters)
         {
             return this.FetchAsync(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected Task GetAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Get;
+            return this.FetchAsync(settings);
         }
 
         /// <summary>
@@ -99,6 +119,16 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected Task PutAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Put;
+            return this.FetchAsync(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -126,6 +156,16 @@ namespace Restafari
         protected Task DeleteAsync(string url, Parameters parameters)
         {
             return this.FetchAsync(Method.Delete, url, parameters);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected Task DeleteAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Delete;
+            return this.FetchAsync(settings);
         }
 
         /// <summary>
@@ -166,6 +206,18 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<IList<T>> PostListAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Post;
+            return this.FetchListAsync<T>(settings);
+        }
+
+        /// <summary>
         /// Gets the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -200,6 +252,18 @@ namespace Restafari
         protected Task<IList<T>> GetListAsync<T>(string url, Parameters parameters)
         {
             return this.FetchListAsync<T>(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<IList<T>> GetListAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Get;
+            return this.FetchListAsync<T>(settings);
         }
 
         /// <summary>
@@ -240,6 +304,18 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<IList<T>> PutListAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Put;
+            return this.FetchListAsync<T>(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -274,6 +350,18 @@ namespace Restafari
         protected Task<IList<T>> DeleteListAsync<T>(string url, Parameters parameters)
         {
             return this.FetchListAsync<T>(Method.Delete, url, parameters);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<IList<T>> DeleteListAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Delete;
+            return this.FetchListAsync<T>(settings);
         }
 
         /// <summary>
@@ -314,6 +402,18 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<T> PostAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Post;
+            return this.FetchAsync<T>(settings);
+        }
+
+        /// <summary>
         /// Gets the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -348,6 +448,18 @@ namespace Restafari
         protected Task<T> GetAsync<T>(string url, Parameters parameters)
         {
             return this.FetchAsync<T>(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<T> GetAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Get;
+            return this.FetchAsync<T>(settings);
         }
 
         /// <summary>
@@ -388,6 +500,18 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<T> PutAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Put;
+            return this.FetchAsync<T>(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -425,25 +549,191 @@ namespace Restafari
         }
 
         /// <summary>
-        /// Fetches the specified method.
+        /// Deletes the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
-        /// <param name="method">The method.</param>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<T> DeleteAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Delete;
+            return this.FetchAsync<T>(settings);
+        }
+
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PostStreamAsync(string url)
+        {
+            return this.PostStreamAsync(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PostStreamAsync<T>(string url, T parameter)
+        {
+            var parameters = new Parameters { { string.Empty, parameter } };
+            return this.PostStreamAsync(url, parameters);
+        }
+
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
         /// <param name="url">The URL.</param>
         /// <param name="parameters">The parameters.</param>
-        /// <returns>A list of deserialized objects.</returns>
-        private async Task<IList<T>> FetchListAsync<T>(Method method, string url, Parameters parameters)
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PostStreamAsync(string url, Parameters parameters)
         {
+            return this.FetchStreamAsync(Method.Post, url, parameters);
+        }
 
-            string responseString;
+        /// <summary>
+        /// Posts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PostStreamAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Post;
+            return this.FetchStreamAsync(settings);
+        }
 
-            using (var reader = new StreamReader(await this.FetchStreamAsync(method, url, parameters)))
-            {
-                responseString = reader.ReadToEnd();
-            }
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> GetStreamAsync(string url)
+        {
+            return this.GetStreamAsync(url, new Parameters());
+        }
 
-            var temporary = DeserializationContext.Value.Deserialize<T[]>(this.ContentType, responseString);
-            return new List<T>(temporary);
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> GetStreamAsync<T>(string url, T parameter)
+        {
+            var parameters = new Parameters { { string.Empty, parameter } };
+            return this.GetStreamAsync(url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> GetStreamAsync(string url, Parameters parameters)
+        {
+            return this.FetchStreamAsync(Method.Get, url, parameters);
+        }
+
+        /// <summary>
+        /// Gets the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> GetStreamAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Get;
+            return this.FetchStreamAsync(settings);
+        }
+
+        /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PutStreamAsync(string url)
+        {
+            return this.PutStreamAsync(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PutStreamAsync<T>(string url, T parameter)
+        {
+            var parameters = new Parameters { { string.Empty, parameter } };
+            return this.PutStreamAsync(url, parameters);
+        }
+
+        /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PutStreamAsync(string url, Parameters parameters)
+        {
+            return this.FetchStreamAsync(Method.Put, url, parameters);
+        }
+
+        /// <summary>
+        /// Puts the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PutStreamAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Put;
+            return this.FetchStreamAsync(settings);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> DeleteStreamAsync(string url)
+        {
+            return this.DeleteStreamAsync(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> DeleteStreamAsync<T>(string url, T parameter)
+        {
+            var parameters = new Parameters { { string.Empty, parameter } };
+            return this.DeleteStreamAsync(url, parameters);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> DeleteStreamAsync(string url, Parameters parameters)
+        {
+            return this.FetchStreamAsync(Method.Delete, url, parameters);
+        }
+
+        /// <summary>
+        /// Deletes the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> DeleteStreamAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Delete;
+            return this.FetchStreamAsync(settings);
         }
 
         /// <summary>
@@ -454,18 +744,22 @@ namespace Restafari
         /// <param name="url">The URL.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns>A list of deserialized objects.</returns>
-        private async Task<T> FetchAsync<T>(Method method, string url, Parameters parameters)
+        private Task<IList<T>> FetchListAsync<T>(Method method, string url, Parameters parameters)
         {
+            return this.FetchListAsync<T>(this.CreateRequestSettings(method, url, parameters));
+        }
 
-            string responseString;
-
-            using (var reader = new StreamReader(await this.FetchStreamAsync(method, url, parameters)))
-            {
-                responseString = reader.ReadToEnd();
-            }
-
-            var temporary = DeserializationContext.Value.Deserialize<T>(this.ContentType, responseString);
-            return temporary;
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="method">The method.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        private Task<T> FetchAsync<T>(Method method, string url, Parameters parameters)
+        {
+            return this.FetchAsync<T>(this.CreateRequestSettings(method, url, parameters));
         }
 
         /// <summary>
@@ -475,12 +769,74 @@ namespace Restafari
         /// <param name="url">The URL.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns>The response stream.</returns>
-        private async Task<Stream> FetchStreamAsync(Method method, string url, Parameters parameters)
+        private Task<Stream> FetchStreamAsync(Method method, string url, Parameters parameters)
+        {
+            return this.FetchStreamAsync(this.CreateRequestSettings(method, url, parameters));
+        }
+
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        private Task FetchAsync(Method method, string url, Parameters parameters)
+        {
+            return this.FetchAsync(this.CreateRequestSettings(method, url, parameters));
+        }
+
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        private async Task<IList<T>> FetchListAsync<T>(RequestSettings settings)
+        {
+
+            string responseString;
+
+            using (var reader = new StreamReader(await this.FetchStreamAsync(settings)))
+            {
+                responseString = reader.ReadToEnd();
+            }
+
+            var temporary = DeserializeParameters<T[]>(settings, responseString);
+            return new List<T>(temporary);
+        }
+
+        /// <summary>
+        /// Fetches the specified method.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        private async Task<T> FetchAsync<T>(RequestSettings settings)
+        {
+
+            string responseString;
+
+            using (var reader = new StreamReader(await this.FetchStreamAsync(settings)))
+            {
+                responseString = reader.ReadToEnd();
+            }
+
+            var temporary = DeserializeParameters<T>(settings, responseString);
+            return temporary;
+        }
+
+        /// <summary>
+        /// Fetches the stream.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        private async Task<Stream> FetchStreamAsync(RequestSettings settings)
         {
             try
             {
-                var request = await this.CreateRequestAsync(method, url, parameters);
+                var request = await this.CreateRequestAsync(settings);
                 var response = await request.GetResponseAsync();
+                this.OnResponseReceived(response, settings);
                 return response.GetResponseStream();
             }
             catch (WebException ex)
@@ -492,15 +848,14 @@ namespace Restafari
         /// <summary>
         /// Fetches the specified method.
         /// </summary>
-        /// <param name="method">The method.</param>
-        /// <param name="url">The URL.</param>
-        /// <param name="parameters">The parameters.</param>
-        private async Task FetchAsync(Method method, string url, Parameters parameters)
+        /// <param name="settings">The request settings.</param>
+        private async Task FetchAsync(RequestSettings settings)
         {
             try
             {
-                var request = await this.CreateRequestAsync(method, url, parameters);
+                var request = await this.CreateRequestAsync(settings);
                 var response = await request.GetResponseAsync();
+                this.OnResponseReceived(response, settings);
             }
             catch (WebException ex)
             {
@@ -511,14 +866,12 @@ namespace Restafari
         /// <summary>
         /// Creates the request.
         /// </summary>
-        /// <param name="method">The method.</param>
-        /// <param name="url">The URL.</param>
-        /// <param name="parameters">The parameters.</param>
+        /// <param name="settings">The request settings.</param>
         /// <returns>The http web request.</returns>
-        private async Task<IRequest> CreateRequestAsync(Method method, string url, Parameters parameters)
+        private async Task<IRequest> CreateRequestAsync(RequestSettings settings)
         {
             byte[] byteArray;
-            var request = this.CreateRequest(method, url, parameters, out byteArray);
+            var request = this.CreateAndPrepareRequest(settings, out byteArray);
 
             if (byteArray != null)
             {

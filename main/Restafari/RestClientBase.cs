@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
 using Restafari.MessageExchange;
 using Restafari.Serialization;
@@ -20,8 +21,6 @@ namespace Restafari
 
         private static readonly Lazy<DeserializationContext> DeserializationContext = new Lazy<DeserializationContext>(() => new DeserializationContext());
 
-        private readonly bool useCredentials;
-
         private readonly string user;
 
         private readonly string password;
@@ -36,7 +35,6 @@ namespace Restafari
 
         protected RestClientBase(IRequestFactory requestFactory)
         {
-            this.useCredentials = false;
             this.requestFactory = requestFactory;
             this.ContentType = ContentType.Json;
         }
@@ -47,7 +45,6 @@ namespace Restafari
 
         protected RestClientBase(string user, string password, IRequestFactory requestFactory)
         {
-            this.useCredentials = true;
             this.user = user;
             this.password = password;
             this.requestFactory = requestFactory;
@@ -58,15 +55,41 @@ namespace Restafari
         {
         }
 
-        private IRequest CreateRequest(Method method, string url, Parameters parameters, out byte[] byteArray)
+        protected virtual void OnResponseReceived(IResponse response)
+        {
+        }
+
+        private void OnRequestCreated(IRequest request, RequestSettings settings)
+        {
+            this.OnRequestCreated(request);
+
+            var handler = settings.RequestCreated;
+            if (handler != null)
+            {
+                handler(this, request);
+            }
+        }
+
+        private void OnResponseReceived(IResponse response, RequestSettings settings)
+        {
+            this.OnResponseReceived(response);
+
+            var handler = settings.ResponseReceived;
+            if (handler != null)
+            {
+                handler(this, response);
+            }
+        }
+
+        private IRequest CreateAndPrepareRequest(RequestSettings settings, out byte[] byteArray)
         {
             byteArray = null;
 
-            var parameterString = SerializationContext.Value.Serialize(method, this.ContentType, parameters);
-            var parsedUrl = ParseUrl(method, url, parameterString);
-            var request = this.CreateHttpRequest(method, parsedUrl);
+            var parameterString = SerializeParameters(settings);
+            var parsedUrl = ParseUrl(settings.Method, settings.Url, parameterString);
+            var request = this.CreateRequest(parsedUrl, settings);
 
-            if (method == Method.Post || method == Method.Put)
+            if (settings.Method == Method.Post || settings.Method == Method.Put)
             {
                 if (!string.IsNullOrEmpty(parameterString))
                 {
@@ -74,23 +97,65 @@ namespace Restafari
                 }
             }
             
-            this.OnRequestCreated(request);
+            this.OnRequestCreated(request, settings);
             return request;
         }
 
-        private IRequest CreateHttpRequest(Method method, string parsedUrl)
+        private IRequest CreateRequest(string parsedUrl, RequestSettings settings)
         {
             var request = this.requestFactory.Create(parsedUrl);
-            request.Method = method.ToString().ToUpper();
+            request.Method = settings.Method.ToString().ToUpper();
+            settings.RequestDecorator.Decorate(request);
 
-            RequestDecorators.Value[this.ContentType].Decorate(request);
-
-            if (this.useCredentials)
+            if (settings.UseCredentials)
             {
-                request.Credentials = new NetworkCredential(this.user, this.password);
+                request.Credentials = new NetworkCredential(settings.User, settings.Password);
             }
 
             return request;
+        }
+
+        private RequestSettings CreateRequestSettings(Method method, string url, Parameters parameters)
+        {
+            return new RequestSettings
+                       {
+                           Method = method,
+                           Url = url,
+                           Parameters = parameters,
+                           ContentType = this.ContentType,
+                           User = this.user,
+                           Password = this.password,
+                           RequestDecorator = RequestDecorators.Value[this.ContentType],
+                           SerializationStrategy = null,
+                           DeserializationStrategy = null,
+                           RequestCreated = null,
+                           ResponseReceived = null
+                       };
+        }
+
+        private static string SerializeParameters(RequestSettings settings)
+        {
+            if (settings.SerializationStrategy != null)
+            {
+                if (settings.SerializationStrategy.CanSerialize(settings.Method, settings.ContentType, settings.Parameters))
+                {
+                    return settings.SerializationStrategy.Serialize(settings.Parameters);
+                }
+
+                throw new SerializationException("Can not serialize the parameters with the specified serializer.");
+            }
+
+            return SerializationContext.Value.Serialize(settings.Method, settings.ContentType, settings.Parameters);
+        }
+
+        private static T DeserializeParameters<T>(RequestSettings settings, string payload)
+        {
+            if (settings.DeserializationStrategy != null)
+            {
+                return settings.DeserializationStrategy.Deserialize<T>(payload);
+            }
+
+            return DeserializeParameters<T>(settings, payload);
         }
 
         private static string ParseUrl(Method method, string url, string parameterString)
@@ -111,12 +176,12 @@ namespace Restafari
                     using (var reader = new StreamReader(stream))
                     {
                         var message = reader.ReadToEnd();
-                        throw new RestClientException(message, ex);
+                        throw new RestClientException(message, new Response((HttpWebResponse)ex.Response), ex);
                     }
                 }
             }
 
-            throw new RestClientException("Connection error", ex);
+            throw new RestClientException("Connection error", null, ex);
         }
     }
 }

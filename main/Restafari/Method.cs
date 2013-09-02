@@ -3,7 +3,7 @@ namespace Restafari
     /// <summary>
     /// REST methods.
     /// </summary>
-    internal enum Method
+    public enum Method
     {
         /// <summary>
         /// POST method.
