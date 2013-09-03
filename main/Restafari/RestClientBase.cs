@@ -105,7 +105,8 @@ namespace Restafari
         {
             var request = this.requestFactory.Create(parsedUrl);
             request.Method = settings.Method.ToString().ToUpper();
-            settings.RequestDecorator.Decorate(request);
+
+            DecorateRequest(settings, request);
 
             if (settings.UseCredentials)
             {
@@ -113,6 +114,18 @@ namespace Restafari
             }
 
             return request;
+        }
+
+        private static void DecorateRequest(RequestSettings settings, IRequest request)
+        {
+            if (settings.RequestDecorator != null)
+            {
+                settings.RequestDecorator.Decorate(request);
+            }
+            else
+            {
+                RequestDecorators.Value[settings.ContentType].Decorate(request);
+            }
         }
 
         private RequestSettings CreateRequestSettings(Method method, string url, Parameters parameters)
@@ -155,7 +168,7 @@ namespace Restafari
                 return settings.DeserializationStrategy.Deserialize<T>(payload);
             }
 
-            return DeserializeParameters<T>(settings, payload);
+            return DeserializationContext.Value.Deserialize<T>(settings.ContentType, payload);
         }
 
         private static string ParseUrl(Method method, string url, string parameterString)
