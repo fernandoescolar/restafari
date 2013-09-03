@@ -8,6 +8,7 @@ namespace Restafari.Tests.Mocks
     public class TestResponse : IResponse
     {
         private TestStream stream = new TestStream();
+        private bool faulted = false;
 
         public Stream Stream { get { return stream; } }
         public string Buffer { get { return stream.TextContent; } }
@@ -23,18 +24,29 @@ namespace Restafari.Tests.Mocks
         public void WriteInStream(string text)
         {
             var bytes = Encoding.UTF8.GetBytes(text);
-            stream.Write(bytes, 0, bytes.Length);
-            stream.Flush();
-            stream.Position = 0;
+            this.stream.Write(bytes, 0, bytes.Length);
+            this.stream.Flush();
+            this.stream.Position = 0;
         }
 
         public Stream GetResponseStream()
         {
-            return stream;
+            if (this.faulted)
+            {
+                throw new WebException("Without connection", WebExceptionStatus.ConnectionClosed);
+            }
+
+            return this.stream;
+        }
+
+        public void CreateException()
+        {
+            this.faulted = true;
         }
 
         public void CleanUp()
         {
+            this.faulted = false;
             this.stream.CleanUp();
         }
     }

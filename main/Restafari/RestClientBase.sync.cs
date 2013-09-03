@@ -827,10 +827,17 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         private Stream FetchStream(RequestSettings settings)
         {
-            var request = this.CreateAndPrepareRequest(settings);
-            var response = request.GetResponse();
-            this.OnResponseReceived(response, settings);
-            return response.GetResponseStream();
+            try
+            {
+                var request = this.CreateAndPrepareRequest(settings);
+                var response = request.GetResponse();
+                this.OnResponseReceived(response, settings);
+                return response.GetResponseStream();
+            }
+            catch (WebException ex)
+            {
+                throw CreateRestException(ex);
+            }
         }
 
         /// <summary>

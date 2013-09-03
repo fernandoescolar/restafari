@@ -102,6 +102,42 @@ namespace Restafari.Tests
         }
 
         [TestMethod]
+        public void PostWithRequestSettingsTest()
+        {
+            this.Post(new RequestSettings { Url = FakeUrl });
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "POST");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public void GetWithRequestSettingsTest()
+        {
+            this.Get(new RequestSettings { Url = FakeUrl });
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "GET");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public void PutWithRequestSettingsTest()
+        {
+            this.Put(new RequestSettings { Url = FakeUrl });
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "PUT");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public void DeleteWithRequestSettingsTest()
+        {
+            this.Delete(new RequestSettings { Url = FakeUrl });
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "DELETE");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
         public void BeginPostTest()
         {
             this.BeginPost(FakeUrl);
@@ -138,6 +174,18 @@ namespace Restafari.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(RestClientException))]
+        public void OnErrorTest()
+        {
+            TestRequestFactory.Response.CreateException();
+            var expected = this.Post<int>(FakeUrl);
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "POST");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+            Assert.AreEqual(expected, int.MaxValue);
+        }
+
+        [TestMethod]
         public async Task AsyncPostTest()
         {
             await this.PostAsync(FakeUrl);
@@ -171,6 +219,97 @@ namespace Restafari.Tests
 
             Assert.AreEqual(TestRequestFactory.Request.Method, "DELETE");
             Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public async Task AsyncPostStreamTest()
+        {
+            await this.PostStreamAsync(FakeUrl);
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "POST");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public async Task AsyncGetStreamTest()
+        {
+            await this.GetStreamAsync(FakeUrl);
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "GET");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public async Task AsyncPutStreamTest()
+        {
+            await this.PutStreamAsync(FakeUrl);
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "PUT");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public async Task AsyncDeleteStreamTest()
+        {
+            await this.DeleteStreamAsync(FakeUrl);
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "DELETE");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public async Task AsyncPostWithRequestSettingsTest()
+        {
+            await this.PostAsync(new RequestSettings { Url = FakeUrl });
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "POST");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public async Task AsyncGetWithRequestSettingsTest()
+        {
+            await this.GetAsync(new RequestSettings { Url = FakeUrl });
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "GET");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public async Task AsyncPutWithRequestSettingsTest()
+        {
+            await this.PutAsync(new RequestSettings { Url = FakeUrl });
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "PUT");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        public async Task AsyncDeleteWithRequestSettingsTest()
+        {
+            await this.DeleteAsync(new RequestSettings { Url = FakeUrl });
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "DELETE");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RestClientException))]
+        public async Task AsyncOnErrorTest()
+        {
+            TestRequestFactory.Response.CreateException();
+            var expected = await this.PostAsync<int>(FakeUrl);
+
+            Assert.AreEqual(TestRequestFactory.Request.Method, "POST");
+            Assert.AreEqual(TestRequestFactory.Request.Url, FakeUrl);
+            Assert.AreEqual(expected, int.MaxValue);
+        }
+
+        [TestCleanup]
+        public void TestCleanUp()
+        {
+            TestRequestFactory.Request.CleanUp();
+            TestRequestFactory.Response.CleanUp();
         }
     }
 }
