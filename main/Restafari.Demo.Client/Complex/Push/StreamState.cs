@@ -1,7 +1,7 @@
 using System.IO;
 using System.Text;
 
-namespace Restafari.Demo.Client.Push
+namespace Restafari.Demo.Client.Complex.Push
 {
     internal class StreamState
     {

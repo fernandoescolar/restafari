@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\HalConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -168,14 +169,22 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PushController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hal\HalListResource.cs" />
+    <Compile Include="Hal\HalListResourceConverter.cs" />
+    <Compile Include="Hal\HalLink.cs" />
+    <Compile Include="Hal\HalJsonMediaTypeFormatter.cs" />
+    <Compile Include="Hal\HalResourceConverter.cs" />
+    <Compile Include="Hal\HalResource.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\ContactStore.cs" />
+    <Compile Include="Models\Meeting.cs" />
+    <Compile Include="Models\MeetingType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

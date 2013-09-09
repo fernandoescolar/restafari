@@ -24,7 +24,7 @@ namespace Restafari
         /// <param name="parameter">The parameter.</param>
         protected Task PostAsync<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PostAsync(url, parameters);
         }
 
@@ -64,7 +64,7 @@ namespace Restafari
         /// <param name="parameter">The parameter.</param>
         protected Task GetAsync<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.GetAsync(url, parameters);
         }
 
@@ -104,7 +104,7 @@ namespace Restafari
         /// <param name="parameter">The parameter.</param>
         protected Task PutAsync<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PutAsync(url, parameters);
         }
 
@@ -144,7 +144,7 @@ namespace Restafari
         /// <param name="parameter">The parameter.</param>
         protected Task DeleteAsync<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.DeleteAsync(url, parameters);
         }
 
@@ -189,7 +189,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected Task<IList<T>> PostListAsync<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PostListAsync<T>(url, parameters);
         }
 
@@ -238,7 +238,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected Task<IList<T>> GetListAsync<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.GetListAsync<T>(url, parameters);
         }
 
@@ -287,7 +287,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected Task<IList<T>> PutListAsync<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PutListAsync<T>(url, parameters);
         }
 
@@ -336,7 +336,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected Task<IList<T>> DeleteListAsync<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.DeleteListAsync<T>(url, parameters);
         }
 
@@ -385,7 +385,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected Task<T> PostAsync<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PostAsync<T>(url, parameters);
         }
 
@@ -434,7 +434,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected Task<T> GetAsync<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.GetAsync<T>(url, parameters);
         }
 
@@ -483,7 +483,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected Task<T> PutAsync<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PutAsync<T>(url, parameters);
         }
 
@@ -532,7 +532,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected Task<T> DeleteAsync<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.DeleteAsync<T>(url, parameters);
         }
 
@@ -578,7 +578,7 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         protected Task<Stream> PostStreamAsync<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PostStreamAsync(url, parameters);
         }
 
@@ -622,7 +622,7 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         protected Task<Stream> GetStreamAsync<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.GetStreamAsync(url, parameters);
         }
 
@@ -666,7 +666,7 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         protected Task<Stream> PutStreamAsync<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PutStreamAsync(url, parameters);
         }
 
@@ -710,7 +710,7 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         protected Task<Stream> DeleteStreamAsync<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.DeleteStreamAsync(url, parameters);
         }
 

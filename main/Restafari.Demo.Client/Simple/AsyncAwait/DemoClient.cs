@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Restafari.Demo.Client.AsyncAwait
+namespace Restafari.Demo.Client.Simple.AsyncAwait
 {
     public class DemoClient : RestClientBase
     {
-        private const string ContactResource = "http://{0}/api/contacts";
+        private const string ContactResource = "http://{0}/api/contact";
         private readonly string host;
 
         public DemoClient(string host)

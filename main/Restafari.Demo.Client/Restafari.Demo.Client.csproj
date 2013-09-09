@@ -46,16 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncPattern\DemoClient.cs" />
+    <Compile Include="Complex\Hal\DemoClient.cs" />
+    <Compile Include="Complex\Hal\HalRequestDecorator.cs" />
+    <Compile Include="Simple\AsyncPattern\DemoClient.cs" />
     <Compile Include="Contact.cs" />
-    <Compile Include="AsyncAwait\DemoClient.cs" />
-    <Compile Include="Sync\CustomAuthDemoClient.cs" />
-    <Compile Include="Sync\HttpAuthDemoClient.cs" />
-    <Compile Include="Sync\DemoClient.cs" />
+    <Compile Include="Simple\AsyncAwait\DemoClient.cs" />
+    <Compile Include="Simple\UsingRequestSettings\DemoClientAsync.cs" />
+    <Compile Include="Simple\UsingRequestSettings\CustomDeserializer.cs" />
+    <Compile Include="Simple\UsingRequestSettings\CustomRequestDecorator.cs" />
+    <Compile Include="Simple\UsingRequestSettings\CustomSerializer.cs" />
+    <Compile Include="Simple\UsingRequestSettings\DemoClient.cs" />
+    <Compile Include="Simple\Sync\CustomAuthDemoClient.cs" />
+    <Compile Include="Simple\Sync\HttpAuthDemoClient.cs" />
+    <Compile Include="Simple\Sync\DemoClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Push\PushClient.cs" />
-    <Compile Include="Push\StreamState.cs" />
+    <Compile Include="Complex\Push\PushClient.cs" />
+    <Compile Include="Complex\Push\StreamState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

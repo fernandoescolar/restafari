@@ -31,7 +31,7 @@ namespace Restafari
         /// </returns>
         protected IAsyncResult BeginPost<T>(string url, T parameter, AsyncCallback callback = null)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.BeginPost(url, parameters, callback);
         }
 
@@ -87,7 +87,7 @@ namespace Restafari
         /// </returns>
         protected IAsyncResult BeginGet<T>(string url, T parameter, AsyncCallback callback = null)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.BeginGet(url, parameters, callback);
         }
 
@@ -143,7 +143,7 @@ namespace Restafari
         /// </returns>
         protected IAsyncResult BeginPut<T>(string url, T parameter, AsyncCallback callback = null)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.BeginPut(url, parameters, callback);
         }
 
@@ -199,7 +199,7 @@ namespace Restafari
         /// </returns>
         protected IAsyncResult BeginDelete<T>(string url, T parameter, AsyncCallback callback = null)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.BeginDelete(url, parameters, callback);
         }
 

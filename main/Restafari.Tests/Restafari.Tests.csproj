@@ -57,6 +57,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="HttpAuthTests.cs" />
+    <Compile Include="Mocks\TestDeserializer.cs" />
+    <Compile Include="Mocks\TestRequestDecorator.cs" />
+    <Compile Include="Mocks\TestSerializer.cs" />
     <Compile Include="Mocks\TestAsyncResult.cs" />
     <Compile Include="QueryStringRestafariParametersTests.cs" />
     <Compile Include="JsonRestafariResponseTests.cs" />
@@ -68,6 +72,7 @@
     <Compile Include="Mocks\TestRestClient.cs" />
     <Compile Include="Mocks\TestStream.cs" />
     <Compile Include="Mocks\TestStreamDisposingEventArgs.cs" />
+    <Compile Include="RequestSettingsTests.cs" />
     <Compile Include="RestafariTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlRestafariParametersTests.cs" />

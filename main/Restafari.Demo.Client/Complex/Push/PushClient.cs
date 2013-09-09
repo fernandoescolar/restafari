@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restafari.Demo.Client.Push
+namespace Restafari.Demo.Client.Complex.Push
 {
     public class PushClient : RestClientBase
     {

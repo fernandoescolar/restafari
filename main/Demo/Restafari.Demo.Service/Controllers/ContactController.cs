@@ -4,34 +4,34 @@ using Restafari.Demo.Service.Models;
 
 namespace Restafari.Demo.Service.Controllers
 {
-    public class ContactsController : ApiController
+    public class ContactController : ApiController
     {
         private readonly ContactStore contactStore = new ContactStore();
-        // GET api/contacts
+        // GET api/contact
         public IEnumerable<Contact> Get()
         {
             return this.contactStore.GetAll();
         }
 
-        // GET api/contacts/5
+        // GET api/contact/5
         public Contact Get(int id)
         {
             return this.contactStore.GetById(id); 
         }
 
-        // POST api/contacts
+        // POST api/contact
         public void Post([FromBody]Contact value)
         {
             this.contactStore.Create(value);
         }
 
-        // PUT api/contacts/5
+        // PUT api/contact/5
         public void Put(int id, [FromBody]Contact value)
         {
             this.contactStore.Update(id, value);
         }
 
-        // DELETE api/contacts/5
+        // DELETE api/contact/5
         public void Delete(int id)
         {
             this.contactStore.Delete(id); 

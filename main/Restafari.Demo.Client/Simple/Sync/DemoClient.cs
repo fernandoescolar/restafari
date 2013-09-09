@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace Restafari.Demo.Client.Sync
+namespace Restafari.Demo.Client.Simple.Sync
 {
     public class DemoClient : RestClientBase
     {
-        private const string ContactResource = "http://{0}/api/contacts";
+        private const string ContactResource = "http://{0}/api/contact";
         private readonly string host;
 
         public DemoClient(string host) : base()
@@ -47,7 +47,7 @@ namespace Restafari.Demo.Client.Sync
         protected override void OnRequestCreated(IRequest request)
         {
             // here we can add authentication headers or whatever
-            request.Headers[HttpRequestHeader.UserAgent] = "Restafari 0.9.0.0 Rest Client";
+            //request.Headers[HttpRequestHeader.UserAgent] = "Restafari 0.9.0.0 Rest Client";
             base.OnRequestCreated(request);
         }
     }

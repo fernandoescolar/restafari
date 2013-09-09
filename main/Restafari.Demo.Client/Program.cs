@@ -1,6 +1,6 @@
 ﻿using System;
-using Restafari.Demo.Client.Push;
-using Restafari.Demo.Client.Sync;
+using Restafari.Demo.Client.Complex.Push;
+using Restafari.Demo.Client.Complex.Hal;
 
 namespace Restafari.Demo.Client
 {
@@ -12,6 +12,7 @@ namespace Restafari.Demo.Client
 
             var contact = new Contact
                               {
+                                  ContactId = 12,
                                   Name = "Fernando Escolar",
                                   Address = "9012 State st",
                                   City = "Barcelona",
@@ -23,11 +24,14 @@ namespace Restafari.Demo.Client
 
             client.AddContact(contact);
 
+            var c = client.GetContact(1);
+            Console.WriteLine("Contact: " + c.Name);
+
             var contacts = client.GetContacts();
             Console.WriteLine("Contacts: " + contacts.Count);
 
-            var push = new PushClient("localhost:45340");
-            push.Subscribe();
+            //var push = new PushClient("localhost:45340");
+            //push.Subscribe();
 
             Console.ReadLine();
         }
