@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Restafari.Demo.Service.Models
@@ -22,15 +22,8 @@ namespace Restafari.Demo.Service.Models
         public string Email { get; set; }
         [DataMember(Name = "twitter")]
         public string Twitter { get; set; }
-        [DataMember(Name = "self")]
-        public string Self
-        {
-            get
-            {
-                return string.Format(CultureInfo.CurrentCulture,
-                    "api/contacts/{0}", this.ContactId);
-            }
-            set { }
-        }
+        [DataMember(Name = "mettings")]
+        public List<Meeting> Meetings { get; set; }
+
     }
 }

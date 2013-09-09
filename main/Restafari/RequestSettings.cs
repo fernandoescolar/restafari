@@ -1,6 +1,4 @@
 ﻿using System;
-using Restafari.MessageExchange;
-using Restafari.Serialization;
 
 namespace Restafari
 {

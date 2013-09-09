@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 
-namespace Restafari.Demo.Client.AsyncPattern
+namespace Restafari.Demo.Client.Simple.AsyncPattern
 {
     public class DemoClient : RestClientBase
     {
-        private const string ContactResource = "http://{0}/api/contacts";
+        private const string ContactResource = "http://{0}/api/contact";
         private readonly string host;
 
         public DemoClient(string host) : base()

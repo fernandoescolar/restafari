@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 
-namespace Restafari.Demo.Client.Sync
+namespace Restafari.Demo.Client.Simple.Sync
 {
     public class HttpAuthDemoClient : RestClientBase
     {
-        private const string ContactResource = "http://{0}/api/contacts";
+        private const string ContactResource = "http://{0}/api/contact";
         private readonly string host;
 
         public HttpAuthDemoClient(string host, string user, string password) : base(user, password)

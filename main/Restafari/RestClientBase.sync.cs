@@ -23,7 +23,7 @@ namespace Restafari
         /// <param name="parameter">The parameter.</param>
         protected void Post<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             this.Post(url, parameters);
         }
 
@@ -63,7 +63,7 @@ namespace Restafari
         /// <param name="parameter">The parameter.</param>
         protected void Get<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             this.Get(url, parameters);
         }
 
@@ -103,7 +103,7 @@ namespace Restafari
         /// <param name="parameter">The parameter.</param>
         protected void Put<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             this.Put(url, parameters);
         }
 
@@ -143,7 +143,7 @@ namespace Restafari
         /// <param name="parameter">The parameter.</param>
         protected void Delete<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             this.Delete(url, parameters);
         }
 
@@ -185,7 +185,7 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         protected Stream PostStream<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PostStream(url, parameters);
         }
 
@@ -229,7 +229,7 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         protected Stream GetStream<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.GetStream(url, parameters);
         }
 
@@ -273,7 +273,7 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         protected Stream PutStream<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PutStream(url, parameters);
         }
 
@@ -317,7 +317,7 @@ namespace Restafari
         /// <returns>The response stream.</returns>
         protected Stream DeleteStream<T>(string url, T parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.DeleteStream(url, parameters);
         }
 
@@ -364,7 +364,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected IList<T> PostList<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PostList<T>(url, parameters);
         }
 
@@ -413,7 +413,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected IList<T> GetList<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.GetList<T>(url, parameters);
         }
 
@@ -462,7 +462,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected IList<T> PutList<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.PutList<T>(url, parameters);
         }
 
@@ -511,7 +511,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected IList<T> DeleteList<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.DeleteList<T>(url, parameters);
         }
 
@@ -559,7 +559,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected T Post<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.Post<T>(url, parameters);
         }
 
@@ -607,7 +607,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected T Get<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.Get<T>(url, parameters);
         }
 
@@ -655,7 +655,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected T Put<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.Put<T>(url, parameters);
         }
 
@@ -703,7 +703,7 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         protected T Delete<T, S>(string url, S parameter)
         {
-            var parameters = new Parameters { { string.Empty, parameter } };
+            var parameters = new Parameters(parameter);
             return this.Delete<T>(url, parameters);
         }
 
