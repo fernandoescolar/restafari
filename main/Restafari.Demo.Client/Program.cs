@@ -1,5 +1,4 @@
 ﻿using System;
-using Restafari.Demo.Client.Complex.Push;
 using Restafari.Demo.Client.Complex.Hal;
 
 namespace Restafari.Demo.Client
@@ -25,7 +24,7 @@ namespace Restafari.Demo.Client
             client.AddContact(contact);
 
             var c = client.GetContact(1);
-            Console.WriteLine("Contact: " + c.Name);
+            Console.WriteLine("Contact: " + c.Entity.Name);
 
             var contacts = client.GetContacts();
             Console.WriteLine("Contacts: " + contacts.Count);

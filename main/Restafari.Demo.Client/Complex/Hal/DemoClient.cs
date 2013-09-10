@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Restafari.Hal;
 
 namespace Restafari.Demo.Client.Complex.Hal
 {
@@ -14,35 +15,26 @@ namespace Restafari.Demo.Client.Complex.Hal
             this.host = host;
         }
 
-        public IList<Contact> GetContacts()
+        public IList<HalResource<Contact>> GetContacts()
         {
             var url = string.Format(ContactResource, this.host);
-            return this.GetList<Contact>(new RequestSettings
+            return this.GetList<HalResource<Contact>>(new RequestSettings
                                              {
                                                  Url = url,
                                                  RequestDecorator = new HalRequestDecorator(),
+                                                 DeserializationStrategy = new HalJsonDeserializationStrategy(),
                                                  ResponseReceived = this.OnResponseReceivedCheckHalHeader
                                              });
         }
 
-        public Contact GetContactById(int id)
+        public HalResource<Contact> GetContact(int id)
         {
             var url = string.Format(ContactResource + "/{1}", this.host, id);
-            return this.Get<Contact>(new RequestSettings
-                                         {
-                                             Url = url,
-                                             RequestDecorator = new HalRequestDecorator(),
-                                             ResponseReceived = this.OnResponseReceivedCheckHalHeader
-                                         });
-        }
-
-        public Contact GetContact(int id)
-        {
-            var url = string.Format(ContactResource + "/{1}", this.host, id);
-            return this.Get<Contact>(new RequestSettings
+            return this.Get<HalResource<Contact>>(new RequestSettings
             {
                 Url = url,
-                RequestDecorator = new HalRequestDecorator()
+                RequestDecorator = new HalRequestDecorator(),
+                DeserializationStrategy = new HalJsonDeserializationStrategy()
             });
         }
 
