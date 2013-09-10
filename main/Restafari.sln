@@ -36,9 +36,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restafari.Demo.Service", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restafari.Demo.Client", "Restafari.Demo.Client\Restafari.Demo.Client.csproj", "{060443EB-F26E-46CC-9090-0E32D29113BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restafari.Hal", "Demo\Restafari.Hal\Restafari.Hal.csproj", "{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
+		SccNumberOfProjects = 10
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
 		SccLocalPath0 = .
@@ -68,6 +70,10 @@ Global
 		SccProjectTopLevelParentUniqueName8 = Restafari.sln
 		SccProjectName8 = Restafari.Demo.Client
 		SccLocalPath8 = Restafari.Demo.Client
+		SccProjectUniqueName9 = Demo\\Restafari.Hal\\Restafari.Hal.csproj
+		SccProjectTopLevelParentUniqueName9 = Restafari.sln
+		SccProjectName9 = Demo/Restafari.Hal
+		SccLocalPath9 = Demo\\Restafari.Hal
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -200,6 +206,20 @@ Global
 		{060443EB-F26E-46CC-9090-0E32D29113BF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{060443EB-F26E-46CC-9090-0E32D29113BF}.Release|x64.ActiveCfg = Release|Any CPU
 		{060443EB-F26E-46CC-9090-0E32D29113BF}.Release|x86.ActiveCfg = Release|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Release|x64.ActiveCfg = Release|Any CPU
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,5 +228,6 @@ Global
 		{C6EE9096-A9B7-4AEB-AF3E-CB5518D2D4FE} = {2304F1AD-199C-4DD3-BA73-D7ADED3D1132}
 		{E09348D3-0793-4AEF-B82B-D840B1B88C8A} = {1D1F03E3-B453-49DB-A623-A54F1D76F6E9}
 		{060443EB-F26E-46CC-9090-0E32D29113BF} = {1D1F03E3-B453-49DB-A623-A54F1D76F6E9}
+		{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B} = {1D1F03E3-B453-49DB-A623-A54F1D76F6E9}
 	EndGlobalSection
 EndGlobal

@@ -2,7 +2,7 @@
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 
-namespace Restafari.Demo.Service.Hal
+namespace Restafari.Hal
 {
     public class HalJsonMediaTypeFormatter : JsonMediaTypeFormatter
     {

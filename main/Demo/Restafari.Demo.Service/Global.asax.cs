@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Restafari.Demo.Service.Models;
+using Restafari.Hal;
 
 namespace Restafari.Demo.Service
 {
@@ -15,10 +17,13 @@ namespace Restafari.Demo.Service
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
-            HalConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            HalConfig.Register(GlobalConfiguration.Configuration);
+            HalConfig.RegisterLinkProvider(() => new ContactLinkProvider());
+            HalConfig.RegisterLinkProvider(() => new MeetingLinkProvider());
         }
     }
 }

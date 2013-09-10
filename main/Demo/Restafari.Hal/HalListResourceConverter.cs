@@ -3,7 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Restafari.Demo.Service.Hal
+namespace Restafari.Hal
 {
     public class HalListResourceConverter : JsonConverter
     {

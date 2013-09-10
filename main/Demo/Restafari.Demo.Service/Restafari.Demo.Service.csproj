@@ -151,7 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\HalConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -175,15 +174,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hal\HalListResource.cs" />
-    <Compile Include="Hal\HalListResourceConverter.cs" />
-    <Compile Include="Hal\HalLink.cs" />
-    <Compile Include="Hal\HalJsonMediaTypeFormatter.cs" />
-    <Compile Include="Hal\HalResourceConverter.cs" />
-    <Compile Include="Hal\HalResource.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\ContactLinkProvider.cs" />
     <Compile Include="Models\ContactStore.cs" />
     <Compile Include="Models\Meeting.cs" />
+    <Compile Include="Models\MeetingLinkProvider.cs" />
     <Compile Include="Models\MeetingType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -309,6 +304,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Restafari.Hal\Restafari.Hal.csproj">
+      <Project>{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}</Project>
+      <Name>Restafari.Hal</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -4,18 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{060443EB-F26E-46CC-9090-0E32D29113BF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Restafari.Demo.Client</RootNamespace>
-    <AssemblyName>Restafari.Demo.Client</AssemblyName>
+    <RootNamespace>Restafari.Hal</RootNamespace>
+    <AssemblyName>Restafari.Hal</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -37,14 +37,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,40 +62,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Complex\Hal\DemoClient.cs" />
-    <Compile Include="Complex\Hal\HalJsonDeserializationStrategy.cs" />
-    <Compile Include="Complex\Hal\HalRequestDecorator.cs" />
-    <Compile Include="Simple\AsyncPattern\DemoClient.cs" />
-    <Compile Include="Contact.cs" />
-    <Compile Include="Simple\AsyncAwait\DemoClient.cs" />
-    <Compile Include="Simple\UsingRequestSettings\DemoClientAsync.cs" />
-    <Compile Include="Simple\UsingRequestSettings\CustomDeserializer.cs" />
-    <Compile Include="Simple\UsingRequestSettings\CustomRequestDecorator.cs" />
-    <Compile Include="Simple\UsingRequestSettings\CustomSerializer.cs" />
-    <Compile Include="Simple\UsingRequestSettings\DemoClient.cs" />
-    <Compile Include="Simple\Sync\CustomAuthDemoClient.cs" />
-    <Compile Include="Simple\Sync\HttpAuthDemoClient.cs" />
-    <Compile Include="Simple\Sync\DemoClient.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="HalConfig.cs" />
+    <Compile Include="HalJsonMediaTypeFormatter.cs" />
+    <Compile Include="HalLink.cs" />
+    <Compile Include="HalListResource.cs" />
+    <Compile Include="HalListResourceConverter.cs" />
+    <Compile Include="HalResource.cs" />
+    <Compile Include="HalResource.generic.cs" />
+    <Compile Include="HalResourceConverter.cs" />
+    <Compile Include="ILinkProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Complex\Push\PushClient.cs" />
-    <Compile Include="Complex\Push\StreamState.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Demo\Restafari.Hal\Restafari.Hal.csproj">
-      <Project>{B66A4406-FEE4-4D45-AE2F-D7AC7D65682B}</Project>
-      <Name>Restafari.Hal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Restafari\Restafari.csproj">
-      <Project>{BD69A35A-36ED-4846-A595-7A37276ABBB5}</Project>
-      <Name>Restafari</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

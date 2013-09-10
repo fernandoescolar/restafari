@@ -4,15 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace Restafari.Demo.Service.Hal
+namespace Restafari.Hal
 {
     [JsonConverter(typeof(HalResourceConverter))]
     [KnownType(typeof(HalLink))]
-    public class HalResource
+    [XmlRoot("resource", Namespace = "")]
+    public class HalResource : IXmlSerializable
     {
-        protected object entity;
+        internal object entity;
 
         public IDictionary<string, HalLink> Links { get; set; }
 
@@ -34,20 +39,20 @@ namespace Restafari.Demo.Service.Hal
 
         public T GetElement<T>() where T : class, new()
         {
-            return GetElement(typeof (T)) as T;
+            return this.GetElement(typeof (T)) as T;
         }
 
-        public object GetElement(Type type) 
+        public virtual object GetElement(Type type) 
         {
             this.entity = Activator.CreateInstance(type);
 
-            foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.GetProperty))
+            foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite))
             {
-                if (property.PropertyType.IsPrimitive || property.PropertyType.IsEnum)
+                if (property.PropertyType.IsPrimitive || property.PropertyType.IsEnum || property.PropertyType.IsAssignableFrom(typeof(string)) || property.PropertyType.IsAssignableFrom(typeof(DateTime)))
                 {
                     if (this.Properties.ContainsKey(property.Name))
                     {
-                        property.SetValue(this.entity, this.Properties[property.Name]);
+                        property.SetValue(this.entity, ((JValue)this.Properties[property.Name]).ToObject(property.PropertyType));
                     }
                 }
                 else
@@ -69,10 +74,10 @@ namespace Restafari.Demo.Service.Hal
 
             var type = this.entity.GetType();
 
-            foreach (var property in type.GetProperties().Where(p => p.CanRead && p.CanWrite))
+            foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite))
             {
 
-                if (property.PropertyType.IsPrimitive || property.PropertyType.IsEnum || property.PropertyType.IsAssignableFrom(typeof(string)))
+                if (property.PropertyType.IsPrimitive || property.PropertyType.IsEnum || property.PropertyType.IsAssignableFrom(typeof(string)) || property.PropertyType.IsAssignableFrom(typeof(DateTime)))
                 {
                     this.Properties.Add(property.Name, property.GetValue(this.entity));
                 }
@@ -87,23 +92,43 @@ namespace Restafari.Demo.Service.Hal
             }
         }
 
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            foreach (var link in this.Links)
+            {
+                writer.WriteStartElement("link");
+                link.Value.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+
+            foreach (var property in this.Properties)
+            {
+                writer.WriteStartElement(property.Key);
+                writer.WriteValue(property.Value);
+                writer.WriteEndElement();
+            }
+
+            foreach (var resource in this.Embedded)
+            {
+                writer.WriteStartElement("resource");
+                resource.Value.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+        }
+
         public static HalResource CreateFrom(object o)
         {
-            var list = o as IEnumerable;
-            return list != null ? new HalListResource(list) : new HalResource(o);
-        }
-    }
-
-    public class HalResource<T> : HalResource where T : class, new()
-    {
-        public T Entity { get { return this.GetElement<T>(); } }
-
-        public HalResource() : base()
-        {
-        }
-
-        public HalResource(T entity) : base(entity)
-        {
+            return o is IEnumerable ? new HalListResource((IEnumerable)o) : new HalResource(o);
         }
     }
 }
