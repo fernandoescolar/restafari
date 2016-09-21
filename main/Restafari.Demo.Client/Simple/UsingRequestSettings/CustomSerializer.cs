@@ -1,15 +1,16 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace Restafari.Demo.Client.Simple.UsingRequestSettings
 {
     class CustomSerializer : ISerializationStrategy
     {
-        public bool CanSerialize(Method method, ContentType type, Parameters parameters)
+        public bool CanSerialize(Method method, string contentType, Parameters parameters)
         {
             return true;
         }
 
-        public string Serialize(Parameters parameters)
+        public byte[] Serialize(Parameters parameters, Encoding encoding)
         {
             var sb = new StringBuilder(@"{
 ""_links"": {
@@ -24,7 +25,7 @@ namespace Restafari.Demo.Client.Simple.UsingRequestSettings
             sb.AppendLine(@"""date"": ""2013-09-03""");
             sb.AppendLine(@"}");
 
-            return sb.ToString();
+            return encoding.GetBytes(sb.ToString());
         }
     }
 }

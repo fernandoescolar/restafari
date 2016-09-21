@@ -1,17 +1,19 @@
 ﻿using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
 
 namespace Restafari.Serialization
 {
     internal class QueryStringSerializationStrategy : ISerializationStrategy
     {
-        public bool CanSerialize(Method method, ContentType type, Parameters parameters)
+        public bool CanSerialize(Method method, string contentType, Parameters parameters)
         {
-            return (Method.Get == method || Method.Delete == method) && parameters != null && parameters.Count > 0;
+            return (Method.Get == method || Method.Delete == method || contentType == ContentTypes.Form) && parameters != null && parameters.Count > 0;
         }
 
-        public string Serialize(Parameters parameters)
+        public byte[] Serialize(Parameters parameters, Encoding encoding)
         {
-            return string.Join("&", parameters.ToList().Select(kp => kp.Key + "=" + parameters.GetSerialized(kp.Key)));
+            return encoding.GetBytes(string.Join("&", parameters.ToList().Select(kp => kp.Key + "=" + parameters.GetSerialized(kp.Key))));
         }
     }
 }

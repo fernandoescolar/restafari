@@ -128,6 +128,46 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        protected void Patch(string url)
+        {
+            this.Patch(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        protected void Patch<T>(string url, T parameter)
+        {
+            var parameters = new Parameters(parameter);
+            this.Patch(url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        protected void Patch(string url, Parameters parameters)
+        {
+            this.Fetch(Method.Patch, url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected void Patch(RequestSettings settings)
+        {
+            settings.Method = Method.Patch;
+            this.Fetch(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -296,6 +336,50 @@ namespace Restafari
         protected Stream PutStream(RequestSettings settings)
         {
             settings.Method = Method.Put;
+            return this.FetchStream(settings);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>The response stream.</returns>
+        protected Stream PatchStream(string url)
+        {
+            return this.PatchStream(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>The response stream.</returns>
+        protected Stream PatchStream<T>(string url, T parameter)
+        {
+            var parameters = new Parameters(parameter);
+            return this.PatchStream(url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The response stream.</returns>
+        protected Stream PatchStream(string url, Parameters parameters)
+        {
+            return this.FetchStream(Method.Patch, url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Stream PatchStream(RequestSettings settings)
+        {
+            settings.Method = Method.Patch;
             return this.FetchStream(settings);
         }
 
@@ -487,6 +571,55 @@ namespace Restafari
         protected IList<T> PutList<T>(RequestSettings settings)
         {
             settings.Method = Method.Put;
+            return this.FetchList<T>(settings);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected IList<T> PatchList<T>(string url)
+        {
+            return this.PatchList<T>(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <typeparam name="S">The type to send.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected IList<T> PatchList<T, S>(string url, S parameter)
+        {
+            var parameters = new Parameters(parameter);
+            return this.PatchList<T>(url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected IList<T> PatchList<T>(string url, Parameters parameters)
+        {
+            return this.FetchList<T>(Method.Patch, url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected IList<T> PatchList<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Patch;
             return this.FetchList<T>(settings);
         }
 
@@ -684,6 +817,54 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected T Patch<T>(string url)
+        {
+            return this.Patch<T>(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected T Patch<T, S>(string url, S parameter)
+        {
+            var parameters = new Parameters(parameter);
+            return this.Patch<T>(url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected T Patch<T>(string url, Parameters parameters)
+        {
+            return this.Fetch<T>(Method.Patch, url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected T Patch<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Patch;
+            return this.Fetch<T>(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -788,15 +969,14 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         private IList<T> FetchList<T>(RequestSettings settings)
         {
-
-            string responseString;
-
-            using (var reader = new StreamReader(this.FetchStream(settings)))
+            byte[] responseBytes;
+            using (var reader = new MemoryStream())
             {
-                responseString = reader.ReadToEnd();
+                this.FetchStream(settings).CopyTo(reader);
+                responseBytes = reader.ToArray();
             }
 
-            var temporary = DeserializeParameters<T[]>(settings, responseString);
+            var temporary = DeserializeParameters<T[]>(settings, responseBytes);
             return new List<T>(temporary);
         }
 
@@ -808,15 +988,14 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         private T Fetch<T>(RequestSettings settings)
         {
-
-            string responseString;
-
-            using (var reader = new StreamReader(this.FetchStream(settings)))
+            byte[] responseBytes;
+            using (var reader = new MemoryStream())
             {
-                responseString = reader.ReadToEnd();
+                this.FetchStream(settings).CopyTo(reader);
+                responseBytes = reader.ToArray();
             }
 
-            var temporary = DeserializeParameters<T>(settings, responseString);
+            var temporary = DeserializeParameters<T>(settings, responseBytes);
             return temporary;
         }
 
@@ -868,9 +1047,12 @@ namespace Restafari
             byte[] byteArray;
             var request = this.CreateAndPrepareRequest(settings, out byteArray);
 
-            if (byteArray != null)
+            if (settings.Method == Method.Post || settings.Method == Method.Put || settings.Method == Method.Patch)
             {
-                this.WriteBody(request, byteArray);
+                if (byteArray != null && byteArray.Length > 0)
+                {
+                    this.WriteBody(request, byteArray);
+                }
             }
 
             return request;

@@ -51,13 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContentType.cs" />
+    <Compile Include="ContentTypes.cs" />
+    <Compile Include="IDecorationContext.cs" />
+    <Compile Include="IDeserializationContext.cs" />
     <Compile Include="IDeserializationStrategy.cs" />
     <Compile Include="IRequest.cs" />
     <Compile Include="IRequestDecorator.cs" />
     <Compile Include="IRequestFactory.cs" />
     <Compile Include="IResponse.cs" />
+    <Compile Include="ISerializationContext.cs" />
     <Compile Include="ISerializationStrategy.cs" />
+    <Compile Include="MessageExchange\CharsetDecorator.cs" />
+    <Compile Include="MessageExchange\DecorationContext.cs" />
     <Compile Include="MessageExchange\JsonRequestDecorator.cs" />
     <Compile Include="MessageExchange\Request.cs" />
     <Compile Include="MessageExchange\RequestFactory.cs" />

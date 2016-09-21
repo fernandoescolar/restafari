@@ -1,29 +1,36 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Restafari.Serialization
 {
-    internal class SerializationContext
+    internal class SerializationContext : List<ISerializationStrategy>, ISerializationContext
     {
-        private static readonly List<ISerializationStrategy> SerializationStrategies = new List<ISerializationStrategy>
-                                                                                           {
+        private static readonly ISerializationStrategy[] DefaultSerializationStrategies =  {
                                                                                                new EmptySerializationStrategy(),
                                                                                                new QueryStringSerializationStrategy(),
                                                                                                new JsonSerializationStrategy(),
                                                                                                new XmlSerializationStrategy()
                                                                                            };
-        public string Serialize(Method method, ContentType type, Parameters parameters)
+
+        public SerializationContext()
+            : base(DefaultSerializationStrategies)
         {
-            var strategy = this.GetStrategy(method, type, parameters);
-            return strategy.Serialize(parameters);
+
         }
 
-        private ISerializationStrategy GetStrategy(Method method, ContentType type, Parameters parameters)
+        public byte[] Serialize(Method method, string contentType, Parameters parameters, Encoding encoding)
         {
-            var result = SerializationStrategies.FirstOrDefault(s => s.CanSerialize(method, type, parameters));
+            var strategy = this.GetStrategy(method, contentType, parameters);
+            return strategy.Serialize(parameters, encoding);
+        }
+
+        private ISerializationStrategy GetStrategy(Method method, string contentType, Parameters parameters)
+        {
+            var result = this.FirstOrDefault(s => s.CanSerialize(method, contentType, parameters));
             if (result == null)
             {
-                return SerializationStrategies[0];
+                return this[0];
             }
 
             return result;

@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace Restafari.Serialization
 {
@@ -11,15 +11,15 @@ namespace Restafari.Serialization
     {
         private const string OnlyOneParameterMessage = "The xml content type doesn't support more one parameter";
 
-        public bool CanSerialize(Method method, ContentType type, Parameters parameters)
+        public bool CanSerialize(Method method, string contentType, Parameters parameters)
         {
-            return ContentType.Xml == type && (Method.Post == method || Method.Put == method) && parameters != null && parameters.Count > 0;
+            return ContentTypes.Xml == contentType && (Method.Post == method || Method.Put == method || Method.Patch == method) && parameters != null && parameters.Count > 0;
         }
 
-        public string Serialize(Parameters parameters)
+        public byte[] Serialize(Parameters parameters, Encoding encoding)
         {
-            var settings = new XmlWriterSettings {OmitXmlDeclaration = true};
-            using (var writer = new StringWriter())
+            var settings = new XmlWriterSettings { OmitXmlDeclaration = true, Encoding = encoding };
+            using (var writer = new MemoryStream())
             {
                 using (var xml = XmlWriter.Create(writer, settings))
                 {
@@ -33,7 +33,7 @@ namespace Restafari.Serialization
                     }
                 }
                 
-                return writer.ToString();
+                return writer.ToArray();
             }
         }
 

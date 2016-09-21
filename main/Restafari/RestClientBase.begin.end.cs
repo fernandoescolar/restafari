@@ -176,6 +176,62 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginPatch(string url, AsyncCallback callback = null)
+        {
+            return this.BeginPatch(url, new Parameters(), callback);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginPatch<T>(string url, T parameter, AsyncCallback callback = null)
+        {
+            var parameters = new Parameters(parameter);
+            return this.BeginPatch(url, parameters, callback);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginPatch(string url, Parameters parameters, AsyncCallback callback = null)
+        {
+            return this.BeginFetchStream(Method.Patch, url, parameters, callback);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <param name="callback">The callback.</param>
+        /// <returns>
+        /// The async state.
+        /// </returns>
+        protected IAsyncResult BeginPatch(RequestSettings settings, AsyncCallback callback = null)
+        {
+            settings.Method = Method.Patch;
+            return this.BeginFetchStream(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -259,15 +315,16 @@ namespace Restafari
         /// <returns>The generic object.</returns>
         protected T EndRequest<T>(IAsyncResult ar)
         {
-            string responseString;
+            byte[] responseBytes;
             var state = (RequestState)ar.AsyncState;
 
-            using (var reader = new StreamReader(this.EndFetchStream(ar)))
+            using (var reader = new MemoryStream())
             {
-                responseString = reader.ReadToEnd();
+                this.EndFetchStream(ar).CopyTo(reader);
+                responseBytes = reader.ToArray();
             }
 
-            var temporary = DeserializeParameters<T>(state.Settings, responseString);
+            var temporary = DeserializeParameters<T>(state.Settings, responseBytes);
             return temporary;
         }
 
@@ -279,15 +336,16 @@ namespace Restafari
         /// <returns>The list of objects.</returns>
         protected IList<T> EndRequestList<T>(IAsyncResult ar)
         {
-            string responseString;
+            byte[] responseBytes;
             var state = (RequestState)ar.AsyncState;
 
-            using (var reader = new StreamReader(this.EndFetchStream(ar)))
+            using (var reader = new MemoryStream())
             {
-                responseString = reader.ReadToEnd();
+                this.EndFetchStream(ar).CopyTo(reader);
+                responseBytes = reader.ToArray();
             }
 
-            var temporary = DeserializeParameters<T[]>(state.Settings, responseString);
+            var temporary = DeserializeParameters<T[]>(state.Settings, responseBytes);
             return new List<T>(temporary);
         }
 

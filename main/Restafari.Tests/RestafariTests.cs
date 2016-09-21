@@ -16,7 +16,7 @@ namespace Restafari.Tests
         [TestMethod]
         public void JsonHeadersTest()
         {
-            const string jsonContentType = "application/json; charset=UTF-8";
+            const string jsonContentType = "application/json; charset=utf-8";
             const string jsonAccept = "application/json";
 
             this.Post(FakeUrl);

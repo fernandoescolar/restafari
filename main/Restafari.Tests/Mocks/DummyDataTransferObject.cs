@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Restafari.Tests.Mocks
 {
-    [DataContract]
+    [DataContract(Name = "DummyDataTransferObject", Namespace = "")]
     public class DummyDataTransferObject
     {
         [DataMember(Name = "id")]

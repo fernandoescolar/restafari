@@ -1,10 +1,22 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Text;
+using Newtonsoft.Json;
 using Restafari.Hal;
 
 namespace Restafari.Demo.Client.Complex.Hal
 {
     public class HalJsonDeserializationStrategy : IDeserializationStrategy
     {
+        public bool CanSerialize(string contentType)
+        {
+            return true;
+        }
+
+        public T Deserialize<T>(byte[] payload, Encoding encoding)
+        {
+            return this.Deserialize<T>(encoding.GetString(payload));
+        }
+
         public T Deserialize<T>(string payload)
         {
             if (typeof(HalResource).IsAssignableFrom(typeof(T)) && typeof(T).IsGenericType)
