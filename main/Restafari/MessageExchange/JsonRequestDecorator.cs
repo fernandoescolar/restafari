@@ -2,17 +2,19 @@ namespace Restafari.MessageExchange
 {
     internal class JsonRequestDecorator : IRequestDecorator
     {
-        private const string JsonContentType = "application/json; charset=UTF-8";
-        private const string JsonAccept = "application/json";
+        public bool CanDecorate(RequestSettings settings)
+        {
+            return settings.ContentType == ContentTypes.Json;
+        }
 
-        public void Decorate(IRequest request)
+        public void Decorate(IRequest request, RequestSettings settings)
         {
             if (request.Method.ToUpper() != "GET")
             {
-                request.ContentType = JsonContentType;
+                request.ContentType = ContentTypes.Json;
             }
 
-            request.Accept = JsonAccept;
+            request.Accept = ContentTypes.Json;
         }
     }
 }

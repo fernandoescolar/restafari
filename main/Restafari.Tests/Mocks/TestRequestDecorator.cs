@@ -2,12 +2,17 @@
 {
     public class TestRequestDecorator : IRequestDecorator
     {
-        public const string ContentTypeText = "application/hal-json; charset=UTF-8";
+        public const string ContentTypeText = "application/hal-json; charset=utf-8";
         public const string AcceptText = "application/hal-json;application/json";
 
         public bool Visited { get; set; }
 
-        public void Decorate(IRequest request)
+        public bool CanDecorate(RequestSettings settings)
+        {
+            return true;
+        }
+
+        public void Decorate(IRequest request, RequestSettings settings)
         {
             request.ContentType = ContentTypeText;
             request.Accept = AcceptText;

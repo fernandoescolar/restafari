@@ -12,7 +12,7 @@ namespace Restafari.Tests
         public XmlRestafariResponseTests()
             : base(TestRequestFactory.Instance)
         {
-            this.ContentType = ContentType.Xml;
+            this.ContentType = ContentTypes.Xml;
         }
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace Restafari.Tests
                 Age = 30,
                 Name = "fulano"
             };
-            TestRequestFactory.Response.WriteInStream("<DummyDataTransferObject xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://schemas.datacontract.org/2004/07/Restafari.Tests.Mocks\"><active>true</active><age>30</age><id>fef2511d-601e-4061-8201-a6352fa898b4</id><name>fulano</name></DummyDataTransferObject>");
+            TestRequestFactory.Response.WriteInStream("<DummyDataTransferObject xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"><active>true</active><age>30</age><id>fef2511d-601e-4061-8201-a6352fa898b4</id><name>fulano</name></DummyDataTransferObject>");
             var actual = this.Post<DummyDataTransferObject>(FakeUrl);
 
             Assert.AreEqual(expected, actual);

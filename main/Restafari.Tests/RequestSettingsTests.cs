@@ -27,7 +27,7 @@ namespace Restafari.Tests
         public void GlobalContentTypeXmlGetTest()
         {
             TestRequestFactory.Request.ContentType = string.Empty;
-            this.ContentType = ContentType.Xml;
+            this.ContentType = ContentTypes.Xml;
             this.Get(FakeUrl);
 
             Assert.AreEqual(TestRequestFactory.Request.ContentType, string.Empty);
@@ -39,31 +39,31 @@ namespace Restafari.Tests
         {
             this.Post(FakeUrl);
 
-            Assert.AreEqual(TestRequestFactory.Request.ContentType, "application/json; charset=UTF-8");
+            Assert.AreEqual(TestRequestFactory.Request.ContentType, "application/json; charset=utf-8");
             Assert.AreEqual(TestRequestFactory.Request.Accept, "application/json");
         }
 
         [TestMethod]
         public void GlobalContentTypeXmlPostTest()
         {
-            this.ContentType = ContentType.Xml;
+            this.ContentType = ContentTypes.Xml;
             this.Post(FakeUrl);
 
-            Assert.AreEqual(TestRequestFactory.Request.ContentType, "application/xml; charset=UTF-8");
+            Assert.AreEqual(TestRequestFactory.Request.ContentType, "application/xml; charset=utf-8");
             Assert.AreEqual(TestRequestFactory.Request.Accept, "application/xml");
         }
 
         [TestMethod]
         public void CustomContentTypeJsonTest()
         {
-            this.ContentType = ContentType.Xml;
+            this.ContentType = ContentTypes.Xml;
             this.Put(new RequestSettings
                          {
                              Url = FakeUrl,
-                             ContentType = ContentType.Json
+                             ContentType = ContentTypes.Json
                          });
 
-            Assert.AreEqual(TestRequestFactory.Request.ContentType, "application/json; charset=UTF-8");
+            Assert.AreEqual(TestRequestFactory.Request.ContentType, "application/json; charset=utf-8");
             Assert.AreEqual(TestRequestFactory.Request.Accept, "application/json");
         }
 
@@ -73,10 +73,10 @@ namespace Restafari.Tests
             this.Put(new RequestSettings
             {
                 Url = FakeUrl,
-                ContentType = ContentType.Xml
+                ContentType = ContentTypes.Xml
             });
 
-            Assert.AreEqual(TestRequestFactory.Request.ContentType, "application/xml; charset=UTF-8");
+            Assert.AreEqual(TestRequestFactory.Request.ContentType, "application/xml; charset=utf-8");
             Assert.AreEqual(TestRequestFactory.Request.Accept, "application/xml");
         }
 
@@ -162,7 +162,6 @@ namespace Restafari.Tests
         [TestMethod]
         public void GlobalResponseReceivedHandlerTest()
         {
-            var visited = false;
             this.Put(FakeUrl);
 
             Assert.IsTrue(ResponseReceivedVisited);
@@ -187,7 +186,7 @@ namespace Restafari.Tests
         {
             this.RequestCreatedVisited = false;
             this.ResponseReceivedVisited = false;
-            this.ContentType = ContentType.Json;
+            this.ContentType = ContentTypes.Json;
             TestRequestFactory.Request.CleanUp();
             TestRequestFactory.Response.CleanUp();
         }

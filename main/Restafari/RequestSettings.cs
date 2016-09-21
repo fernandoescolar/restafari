@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Restafari
 {
@@ -19,6 +20,10 @@ namespace Restafari
         public Action<object, IRequest> RequestCreated { get; set; }
         public Action<object, IResponse> ResponseReceived { get; set; }
 
-        public ContentType ContentType { get; set; }
+        public string ContentType { get; set; }
+
+        public Encoding Encoding { get; set; }
+
+        internal string ResponseContentType { get; set; }
     }
 }

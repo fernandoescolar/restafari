@@ -1,15 +1,17 @@
-﻿namespace Restafari.Serialization
+﻿using System.Text;
+
+namespace Restafari.Serialization
 {
     internal class EmptySerializationStrategy : ISerializationStrategy
     {
-        public bool CanSerialize(Method method, ContentType type, Parameters parameters)
+        public bool CanSerialize(Method method, string contentType, Parameters parameters)
         {
             return parameters == null || parameters.Count == 0;
         }
 
-        public string Serialize(Parameters parameters)
+        public byte[] Serialize(Parameters parameters, Encoding encoding)
         {
-            return string.Empty;
+            return new byte[0];
         }
     }
 }

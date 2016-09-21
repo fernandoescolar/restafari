@@ -129,6 +129,46 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        protected Task PatchAsync(string url)
+        {
+            return this.PatchAsync(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        protected Task PatchAsync<T>(string url, T parameter)
+        {
+            var parameters = new Parameters(parameter);
+            return this.PatchAsync(url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        protected Task PatchAsync(string url, Parameters parameters)
+        {
+            return this.FetchAsync(Method.Patch, url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        protected Task PatchAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Patch;
+            return this.FetchAsync(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -312,6 +352,55 @@ namespace Restafari
         protected Task<IList<T>> PutListAsync<T>(RequestSettings settings)
         {
             settings.Method = Method.Put;
+            return this.FetchListAsync<T>(settings);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<IList<T>> PatchListAsync<T>(string url)
+        {
+            return this.PatchListAsync<T>(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <typeparam name="S">The type of the parameter.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<IList<T>> PatchListAsync<T, S>(string url, S parameter)
+        {
+            var parameters = new Parameters(parameter);
+            return this.PatchListAsync<T>(url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<IList<T>> PatchListAsync<T>(string url, Parameters parameters)
+        {
+            return this.FetchListAsync<T>(Method.Patch, url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<IList<T>> PatchListAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Patch;
             return this.FetchListAsync<T>(settings);
         }
 
@@ -512,6 +601,55 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<T> PatchAsync<T>(string url)
+        {
+            return this.PatchAsync<T>(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <typeparam name="S">The type of the parameter.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<T> PatchAsync<T, S>(string url, S parameter)
+        {
+            var parameters = new Parameters(parameter);
+            return this.PatchAsync<T>(url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<T> PatchAsync<T>(string url, Parameters parameters)
+        {
+            return this.FetchAsync<T>(Method.Patch, url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <typeparam name="T">The type to deserialize.</typeparam>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>A list of deserialized objects.</returns>
+        protected Task<T> PatchAsync<T>(RequestSettings settings)
+        {
+            settings.Method = Method.Patch;
+            return this.FetchAsync<T>(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <typeparam name="T">The type to deserialize.</typeparam>
@@ -693,6 +831,50 @@ namespace Restafari
         }
 
         /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PatchStreamAsync(string url)
+        {
+            return this.PatchStreamAsync(url, new Parameters());
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PatchStreamAsync<T>(string url, T parameter)
+        {
+            var parameters = new Parameters(parameter);
+            return this.PatchStreamAsync(url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PatchStreamAsync(string url, Parameters parameters)
+        {
+            return this.FetchStreamAsync(Method.Patch, url, parameters);
+        }
+
+        /// <summary>
+        /// Patchs the specified URL.
+        /// </summary>
+        /// <param name="settings">The request settings.</param>
+        /// <returns>The response stream.</returns>
+        protected Task<Stream> PatchStreamAsync(RequestSettings settings)
+        {
+            settings.Method = Method.Put;
+            return this.FetchStreamAsync(settings);
+        }
+
+        /// <summary>
         /// Deletes the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
@@ -793,15 +975,15 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         private async Task<IList<T>> FetchListAsync<T>(RequestSettings settings)
         {
+            byte[] responseBytes;
 
-            string responseString;
-
-            using (var reader = new StreamReader(await this.FetchStreamAsync(settings)))
+            using (var reader = new MemoryStream())
             {
-                responseString = reader.ReadToEnd();
+                (await this.FetchStreamAsync(settings)).CopyTo(reader);
+                responseBytes = reader.ToArray();
             }
 
-            var temporary = DeserializeParameters<T[]>(settings, responseString);
+            var temporary = DeserializeParameters<T[]>(settings, responseBytes);
             return new List<T>(temporary);
         }
 
@@ -813,15 +995,15 @@ namespace Restafari
         /// <returns>A list of deserialized objects.</returns>
         private async Task<T> FetchAsync<T>(RequestSettings settings)
         {
+            byte[] responseBytes;
 
-            string responseString;
-
-            using (var reader = new StreamReader(await this.FetchStreamAsync(settings)))
+            using (var reader = new MemoryStream())
             {
-                responseString = reader.ReadToEnd();
+                (await this.FetchStreamAsync(settings)).CopyTo(reader);
+                responseBytes = reader.ToArray();
             }
 
-            var temporary = DeserializeParameters<T>(settings, responseString);
+            var temporary = DeserializeParameters<T>(settings, responseBytes);
             return temporary;
         }
 
@@ -873,7 +1055,7 @@ namespace Restafari
             byte[] byteArray;
             var request = this.CreateAndPrepareRequest(settings, out byteArray);
 
-            if (byteArray != null)
+            if (byteArray != null && (settings.Method == Method.Post || settings.Method == Method.Put ||settings.Method == Method.Patch))
             {
                 await WriteBodyAsync(request, byteArray);
             }

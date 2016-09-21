@@ -21,6 +21,11 @@ namespace Restafari
         Put,
 
         /// <summary>
+        /// PATCH mehod.
+        /// </summary>
+        Patch,
+
+        /// <summary>
         /// DELETE method.
         /// </summary>
         Delete

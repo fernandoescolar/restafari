@@ -1,7 +1,10 @@
+using System.Text;
+
 namespace Restafari
 {
     public interface IDeserializationStrategy
     {
-        T Deserialize<T>(string payload);
+        bool CanSerialize(string contentType);
+        T Deserialize<T>(byte[] payload, Encoding encoding);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 
 namespace Restafari.Demo.Client.Simple.UsingRequestSettings
 {
@@ -7,7 +8,7 @@ namespace Restafari.Demo.Client.Simple.UsingRequestSettings
         private const string HalContentType = "application/hal-json; charset=UTF-8";
         private const string HalAccept = "application/hal-json;application/json";
 
-        public void Decorate(IRequest request)
+        public void Decorate(IRequest request, RequestSettings settings)
         {
             if (request.Method.ToUpper() != "GET")
             {
@@ -16,6 +17,11 @@ namespace Restafari.Demo.Client.Simple.UsingRequestSettings
 
             request.Accept = HalAccept;
             request.Headers[HttpRequestHeader.UserAgent] = "Restafari 0.9.0.0 Rest Client";
+        }
+
+        public bool CanDecorate(RequestSettings settings)
+        {
+            return true;
         }
     }
 }

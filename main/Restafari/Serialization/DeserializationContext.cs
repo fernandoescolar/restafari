@@ -1,15 +1,36 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Restafari.Serialization
 {
-    internal class DeserializationContext
+    internal class DeserializationContext : List<IDeserializationStrategy>, IDeserializationContext
     {
-        private static readonly Dictionary<ContentType, IDeserializationStrategy> DeserilizationStrategy = new Dictionary<ContentType, IDeserializationStrategy> { { ContentType.Json, new JsonDeserializationStrategy() }, { ContentType.Xml, new XmlDeserializationStrategy() } }; 
+        private static readonly IDeserializationStrategy[] DefaultDeserilizationStrategies = { 
+            new JsonDeserializationStrategy(),
+            new XmlDeserializationStrategy() 
+        };
 
-
-        public T Deserialize<T>(ContentType contentType, string payload)
+        public DeserializationContext()
+            : base(DefaultDeserilizationStrategies)
         {
-            return DeserilizationStrategy[contentType].Deserialize<T>(payload);
+
+        }
+
+        public T Deserialize<T>(string contentType, byte[] payload, Encoding encoding)
+        {
+            return this.GetStrategy(contentType).Deserialize<T>(payload, encoding);
+        }
+
+        private IDeserializationStrategy GetStrategy(string contentType)
+        {
+            var result = this.FirstOrDefault(s => s.CanSerialize(contentType));
+            if (result == null)
+            {
+                return this[0];
+            }
+
+            return result;
         }
     }
 }

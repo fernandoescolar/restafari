@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Restafari.MessageExchange;
+using Restafari.Serialization;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
-using Restafari.MessageExchange;
-using Restafari.Serialization;
 
 namespace Restafari
 {
@@ -15,11 +14,11 @@ namespace Restafari
     /// </summary>
     public abstract partial class RestClientBase
     {
-        private static readonly Lazy<Dictionary<ContentType, IRequestDecorator>> RequestDecorators = new Lazy<Dictionary<ContentType, IRequestDecorator>>(() => new Dictionary<ContentType, IRequestDecorator> { { ContentType.Json, new JsonRequestDecorator() }, { ContentType.Xml, new XmlRequestDecorator() } });
+        private static readonly Lazy<IDecorationContext> DecorationContext = new Lazy<IDecorationContext>(() => new DecorationContext());
 
-        private static readonly Lazy<SerializationContext> SerializationContext = new Lazy<SerializationContext>(() => new SerializationContext());
+        private static readonly Lazy<ISerializationContext> SerializationContext = new Lazy<ISerializationContext>(() => new SerializationContext());
 
-        private static readonly Lazy<DeserializationContext> DeserializationContext = new Lazy<DeserializationContext>(() => new DeserializationContext());
+        private static readonly Lazy<IDeserializationContext> DeserializationContext = new Lazy<IDeserializationContext>(() => new DeserializationContext());
 
         private readonly string user;
 
@@ -27,7 +26,9 @@ namespace Restafari
 
         private readonly IRequestFactory requestFactory;
 
-        public ContentType ContentType { get; set; }
+        public string ContentType { get; set; }
+
+        public Encoding Encoding { get; set; }
 
         protected RestClientBase() : this(new RequestFactory())
         {
@@ -36,19 +37,18 @@ namespace Restafari
         protected RestClientBase(IRequestFactory requestFactory)
         {
             this.requestFactory = requestFactory;
-            this.ContentType = ContentType.Json;
+            this.ContentType = ContentTypes.Json;
+            this.Encoding = Encoding.UTF8;
         }
 
         protected RestClientBase(string user, string password) : this(user, password, new RequestFactory())
         {
         }
 
-        protected RestClientBase(string user, string password, IRequestFactory requestFactory)
+        protected RestClientBase(string user, string password, IRequestFactory requestFactory) : this(requestFactory)
         {
             this.user = user;
             this.password = password;
-            this.requestFactory = requestFactory;
-            this.ContentType = ContentType.Json;
         }
 
         protected virtual void OnRequestCreated(IRequest request)
@@ -72,6 +72,7 @@ namespace Restafari
 
         private void OnResponseReceived(IResponse response, RequestSettings settings)
         {
+            settings.ResponseContentType = response.ContentType;
             this.OnResponseReceived(response);
 
             var handler = settings.ResponseReceived;
@@ -83,22 +84,21 @@ namespace Restafari
 
         private IRequest CreateAndPrepareRequest(RequestSettings settings, out byte[] byteArray)
         {
-            byteArray = null;
+            this.CheckRequestSettings(settings);
 
-            var parameterString = SerializeParameters(settings);
-            var parsedUrl = ParseUrl(settings.Method, settings.Url, parameterString);
+            byteArray = SerializeParameters(settings);
+            
+            var parsedUrl = ParseUrl(settings.Method, settings.Url, byteArray, settings.Encoding);
             var request = this.CreateRequest(parsedUrl, settings);
-
-            if (settings.Method == Method.Post || settings.Method == Method.Put)
-            {
-                if (!string.IsNullOrEmpty(parameterString))
-                {
-                    byteArray = Encoding.UTF8.GetBytes(parameterString);
-                }
-            }
             
             this.OnRequestCreated(request, settings);
             return request;
+        }
+
+        private void CheckRequestSettings(RequestSettings settings)
+        {
+            if (settings.Encoding == null) settings.Encoding = this.Encoding;
+            if (settings.ContentType == null) settings.ContentType = this.ContentType;
         }
 
         private IRequest CreateRequest(string parsedUrl, RequestSettings settings)
@@ -120,11 +120,11 @@ namespace Restafari
         {
             if (settings.RequestDecorator != null)
             {
-                settings.RequestDecorator.Decorate(request);
+                settings.RequestDecorator.Decorate(request, settings);
             }
             else
             {
-                RequestDecorators.Value[settings.ContentType].Decorate(request);
+                DecorationContext.Value.Decorate(request, settings);
             }
         }
 
@@ -136,9 +136,10 @@ namespace Restafari
                            Url = url,
                            Parameters = parameters,
                            ContentType = this.ContentType,
+                           Encoding = this.Encoding,
                            User = this.user,
                            Password = this.password,
-                           RequestDecorator = RequestDecorators.Value[this.ContentType],
+                           RequestDecorator = null,
                            SerializationStrategy = null,
                            DeserializationStrategy = null,
                            RequestCreated = null,
@@ -146,36 +147,38 @@ namespace Restafari
                        };
         }
 
-        private static string SerializeParameters(RequestSettings settings)
+        private static byte[] SerializeParameters(RequestSettings settings)
         {
             if (settings.SerializationStrategy != null)
             {
                 if (settings.SerializationStrategy.CanSerialize(settings.Method, settings.ContentType, settings.Parameters))
                 {
-                    return settings.SerializationStrategy.Serialize(settings.Parameters);
+                    return settings.SerializationStrategy.Serialize(settings.Parameters, settings.Encoding);
                 }
 
                 throw new SerializationException("Can not serialize the parameters with the specified serializer.");
             }
 
-            return SerializationContext.Value.Serialize(settings.Method, settings.ContentType, settings.Parameters);
+            return SerializationContext.Value.Serialize(settings.Method, settings.ContentType, settings.Parameters, settings.Encoding);
         }
 
-        private static T DeserializeParameters<T>(RequestSettings settings, string payload)
+        private static T DeserializeParameters<T>(RequestSettings settings, byte[] payload)
         {
             if (settings.DeserializationStrategy != null)
             {
-                return settings.DeserializationStrategy.Deserialize<T>(payload);
+                return settings.DeserializationStrategy.Deserialize<T>(payload, settings.Encoding);
             }
 
-            return DeserializationContext.Value.Deserialize<T>(settings.ContentType, payload);
+            var contentType = string.IsNullOrEmpty(settings.ResponseContentType) ? settings.ContentType : settings.ResponseContentType;
+            return DeserializationContext.Value.Deserialize<T>(contentType, payload, settings.Encoding);
         }
 
-        private static string ParseUrl(Method method, string url, string parameterString)
+        private static string ParseUrl(Method method, string url, byte[] parameterBytes, Encoding encoding)
         {
-            return ((method == Method.Post || method == Method.Put) || string.IsNullOrEmpty(parameterString))
-                ? url
-                : url + "?" + parameterString;
+            if (method == Method.Post || method == Method.Put || method == Method.Patch) return url;
+
+            var parameterString = (parameterBytes != null && parameterBytes.Length > 0) ? encoding.GetString(parameterBytes, 0, parameterBytes.Length) : string.Empty;
+            return string.IsNullOrEmpty(parameterString) ? url : string.Format("{0}?{1}", url, parameterString);
         }
 
         [DebuggerStepThrough]

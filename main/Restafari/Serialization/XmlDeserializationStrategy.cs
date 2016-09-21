@@ -1,18 +1,22 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace Restafari.Serialization
 {
     internal class XmlDeserializationStrategy : IDeserializationStrategy
-    {
-        public T Deserialize<T>(string payload)
+    {   
+        public bool CanSerialize(string contentType)
+        {
+            return contentType == ContentTypes.Xml;
+        }
+
+        public T Deserialize<T>(byte[] payload, Encoding encoding)
         {
             var serializer = new DataContractSerializer(typeof(T));
 
-            using (var reader = new StringReader(payload))
+            using (var reader = new MemoryStream(payload, false))
             {
                 using (var xml = XmlReader.Create(reader))
                 {

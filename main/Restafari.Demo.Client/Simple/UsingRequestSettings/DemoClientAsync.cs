@@ -41,7 +41,7 @@ namespace Restafari.Demo.Client.Simple.UsingRequestSettings
             return this.GetListAsync<Contact>(new RequestSettings
                                              {
                                                  Url = url,
-                                                 ContentType = ContentType.Json,
+                                                 ContentType = ContentTypes.Json,
                                                  RequestCreated = OnRequestCreatedAddRestafariHeader,
                                                  ResponseReceived = OnResponseReceivedCheckRestafariHeader
                                              });
@@ -125,7 +125,7 @@ namespace Restafari.Demo.Client.Simple.UsingRequestSettings
             return this.DeleteAsync(new RequestSettings
             {
                 Url = url,
-                ContentType = ContentType.Xml
+                ContentType = ContentTypes.Xml
             });
         }
 

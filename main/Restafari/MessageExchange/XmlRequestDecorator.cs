@@ -2,17 +2,19 @@ namespace Restafari.MessageExchange
 {
     internal class XmlRequestDecorator : IRequestDecorator
     {
-        private const string XmlContentType = "application/xml; charset=UTF-8";
-        private const string XmlAccept = "application/xml";
+        public bool CanDecorate(RequestSettings settings)
+        {
+            return settings.ContentType == ContentTypes.Xml;
+        }
 
-        public void Decorate(IRequest request)
+        public void Decorate(IRequest request, RequestSettings settings)
         {
             if (request.Method.ToUpper() != "GET")
             {
-                request.ContentType = XmlContentType;
+                request.ContentType = ContentTypes.Xml;
             }
 
-            request.Accept = XmlAccept;
+            request.Accept = ContentTypes.Xml;
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Restafari.Tests.Mocks;
 
@@ -12,13 +12,13 @@ namespace Restafari.Tests
         public XmlRestafariParametersTests()
             : base(TestRequestFactory.Instance)
         {
-            this.ContentType = ContentType.Xml;
+            this.ContentType = ContentTypes.Xml;
         }
 
         [TestMethod]
         public void XmlBodyIntParamaterTest()
         {
-            const string expected = "<int xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">12</int>";
+            const string expected = @"﻿<int xmlns=""http://schemas.microsoft.com/2003/10/Serialization/"">12</int>";
             this.Post(FakeUrl, 12);
 
             Assert.AreEqual(expected, TestRequestFactory.Request.Buffer);
@@ -27,7 +27,7 @@ namespace Restafari.Tests
         [TestMethod]
         public void XmlBodyIntParamatersTest()
         {
-            const string expected = "<int xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">12</int>";
+            const string expected = @"﻿<int xmlns=""http://schemas.microsoft.com/2003/10/Serialization/"">12</int>";
             var parameters = new Parameters { { string.Empty, 12 } };
 
             this.Post(FakeUrl, parameters);
@@ -49,7 +49,7 @@ namespace Restafari.Tests
         [TestMethod]
         public void XmlBodyStringParamaterTest()
         {
-            const string expected = "<string xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">ola k ase</string>";
+            const string expected = @"﻿<string xmlns=""http://schemas.microsoft.com/2003/10/Serialization/"">ola k ase</string>";
 
             this.Post(FakeUrl, "ola k ase");
 
@@ -59,7 +59,7 @@ namespace Restafari.Tests
         [TestMethod]
         public void XmlBodyStringParamatersTest()
         {
-            const string expected = "<string xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">ola k ase</string>";
+            const string expected = @"﻿<string xmlns=""http://schemas.microsoft.com/2003/10/Serialization/"">ola k ase</string>";
             var parameters = new Parameters { { string.Empty, "ola k ase" } };
 
             this.Post(FakeUrl, parameters);
@@ -81,7 +81,7 @@ namespace Restafari.Tests
         [TestMethod]
         public void XmlBodyComplexParamaterTest()
         {
-            const string expected = "<DummyDataTransferObject xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://schemas.datacontract.org/2004/07/Restafari.Tests.Mocks\"><active>true</active><age>30</age><id>fef2511d-601e-4061-8201-a6352fa898b4</id><name>fulano</name></DummyDataTransferObject>";
+            const string expected = @"﻿<DummyDataTransferObject xmlns:i=""http://www.w3.org/2001/XMLSchema-instance""><active>true</active><age>30</age><id>fef2511d-601e-4061-8201-a6352fa898b4</id><name>fulano</name></DummyDataTransferObject>";
             var dto = new DummyDataTransferObject
                           {
                               Id = new Guid("FEF2511D-601E-4061-8201-A6352FA898B4"),
@@ -98,7 +98,7 @@ namespace Restafari.Tests
         [TestMethod]
         public void XmlBodyComplexParamatersTest()
         {
-            const string expected = "<DummyDataTransferObject xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://schemas.datacontract.org/2004/07/Restafari.Tests.Mocks\"><active>true</active><age>30</age><id>fef2511d-601e-4061-8201-a6352fa898b4</id><name>fulano</name></DummyDataTransferObject>";
+            const string expected = @"﻿<DummyDataTransferObject xmlns:i=""http://www.w3.org/2001/XMLSchema-instance""><active>true</active><age>30</age><id>fef2511d-601e-4061-8201-a6352fa898b4</id><name>fulano</name></DummyDataTransferObject>";
             var dto = new DummyDataTransferObject
                           {
                               Id = new Guid("FEF2511D-601E-4061-8201-A6352FA898B4"),
